@@ -7,3 +7,8 @@
 .clj-kondo/
 .clj-kondo/*
 /.clj-kondo/*
+
+.calva
+.lsp
+.vscode
+.nrepl-port

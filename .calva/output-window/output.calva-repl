@@ -3,3 +3,6 @@
 clj꞉mimi.openai_api꞉> 
 #'mimi.openai_api/gem-mbti
 clj꞉mimi.openai_api꞉> 
+(* 8 4)
+32
+clj꞉mimi.file_ops꞉> 
