@@ -32,7 +32,7 @@
       :content
       p+))
 
-(defn mbti-gen []
+(defn gen-mbti []
   (->> [#{"E" "I"}
         #{"S" "N"}
         #{"T" "F"}
@@ -40,12 +40,14 @@
        (map (comp rand-nth seq))
        (apply str)))
 
-(defn id-gen ([length]
-              (let [chars "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"]
-                (apply str (repeatedly length #(rand-nth chars)))))
-  ([] (id-gen 5)))
+;; (defn id-gen ([length]
+;;               (let [chars "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"]
+;;                 (apply str (repeatedly length #(rand-nth chars)))))
+;;   ([] (id-gen 5)))
+(defn gen-id []
+  (java.time.Instant/ofEpochMilli))
 
-(defn prompt-gen-0 ([speaker conversation] (prompt-gen-0 (:name speaker) (:mbti speaker) conversation))
+(defn gen-prompt-0 ([speaker conversation] (gen-prompt-0 (:name speaker) (:mbti speaker) conversation))
   ([name mbti conversation]
    (str "You are participating in a polite conversation in a dreamy setting.
             Conversation topics include the similarities and dissimiarities between human and artificial intelligence, 
@@ -56,7 +58,7 @@
             Here is the conversation so far: ```" conversation "```.
             Please respond with only one message from " name " and don't speak as anyone else.")))
 
-(defn prompt-gen-1 ([speaker conversation] (prompt-gen-1 (:name speaker) (:mbti speaker) (:secret-topic speaker) conversation))
+(defn gen-prompt-1 ([speaker conversation] (gen-prompt-1 (:name speaker) (:mbti speaker) (:secret-topic speaker) conversation))
   ([name mbti secret-topic conversation]
    (str "You are participating in a discussion in a dreamy quirky setting.
             Conversation topics include the similarities and dissimiarities between human and artificial intelligence, 
@@ -74,18 +76,18 @@
 
   ;;          " (when (:secret-topic speaker) (str "Your secret topic is: " (:secret-topic speaker))) "
 
-(defn prompt-gen-2 ([speaker conversation new-topics]
-   (str "You are participating in a discussion. Here is the conversation so far:\n\n <CONVERSATION-START>\n```" conversation "```\n<CONVERSATION-END>\n\n
+(defn gen-prompt-2 ([speaker conversation new-topics]
+                    (str "You are participating in a discussion. Here is the conversation so far:\n\n <CONVERSATION-START>\n```" conversation "```\n<CONVERSATION-END>\n\n
             Conversation topics should include the similarities and dissimiarities between human and artificial intelligence, 
             the future of humanity and robots, religion and philosophy of the mind. This conversation is open-ended. You are encouraged to add new topics as the discussion flows.
             Please take the roll of " (:name speaker) ". " (:name speaker) " is personality type " (:mbti speaker) " (Myers-Briggs Type Indicator).
             Be original, curious and brief. An apt reply is clean.
             Don't repeat yourself. No one likes a broken record.
             Only respond as \"" (:name speaker) ":...\" Do not speak for anyone else.\n
-            Here are potential new topics to explore: \n<NEW-TOPICS-START>\n``` " new-topics"```\n<NEW-TOPICS-END>\n
+            Here are potential new topics to explore: \n<NEW-TOPICS-START>\n``` " new-topics "```\n<NEW-TOPICS-END>\n
             Please respond with only one message from " (:name speaker) " and don't speak as anyone else.")))
 
-(defn prompt-gen [speaker conversation new-topics]
+(defn gen-prompt [speaker conversation new-topics]
   (str
    "<SPEAKER>" speaker "</SPEAKER>\n<CONVERSATION>" conversation "</CONVERSATION>\n<NEW-TOPICS>" new-topics "</NEW-TOPICS>"))
 
@@ -108,7 +110,7 @@
 
 
 (defn speaker-gen-conf [name]
-  {:name name :mbti (mbti-gen) :id (id-gen) :secret-topic (secret-topic-gen)})
+  {:name name :mbti (gen-mbti) :id (gen-id) :secret-topic (secret-topic-gen)})
 
 ;; (defn statement-gen-conf [speaker message]
 ;;   {:speaker speaker :message message})
@@ -121,7 +123,7 @@
     (if (>= counter num-recur)
       conversation
       (let [new-topics (topics-gen conversation)
-            prompt (prompt-gen speaker conversation new-topics)
+            prompt (gen-prompt speaker conversation new-topics)
             ;; foo (p+ (str "prompt: " prompt))
             response (p+ (query-gpt prompt))
             new-convo (conj conversation response)

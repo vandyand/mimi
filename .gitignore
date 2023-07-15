@@ -1,0 +1,9 @@
+./.vscode
+./.lsp
+./.cpcache
+./.clj-kondo
+./.calva
+
+.clj-kondo/
+.clj-kondo/*
+/.clj-kondo/*
