@@ -19,9 +19,9 @@
 
 (defn p+ [x]
   x
-;;   (do
-;;     (println x)
-;;     x)
+  (do
+    (println x)
+    x)
   )
 
 (defn query-gpt [query]
@@ -38,7 +38,7 @@
 ;;;;;;;;;;;;;;;;;;;; GENERATE AGENTS ;;;;;;;;;;;;;
 
 (defn gen-agent-body []
-  (query-gpt "Please generate a paragraph of random words for me. No ai voice. No ai description. No ai summary."))
+  (query-gpt "Please generate an agent prompt for me. The agent will be tasked with summarizing Biblical passages. No ai voice. No ai description. No ai summary."))
 
 (defn gen-agent
   ([] (gen-agent (gen-agent-body)))
@@ -55,7 +55,7 @@
          (gen-agent-body))))
 
 (defn mutate-agent [agent]
-  (gen-agent (query-gpt (str "Please change a few words in this paragraph: "
+  (gen-agent (query-gpt (str "Please improve this prompt so that it elicits better Biblical passage summaries: "
                              (:body agent)
                              "No ai voice. No ai description. No ai summary."))))
 
@@ -112,7 +112,7 @@
               "SUMMARY2: " summary2 "\n"
               "No ai voice. No ai description. No ai summary. No ai rationale. Please respond ONLY with 'SUMMARY1' or 'SUMMARY2'")))
 
-(let [agents (gen-agents (gen-agent-bodies 20))
+(let [agents (gen-agents (gen-agent-bodies 5))
       foo (p+ agents)
       first-ref {:book "genesis" :chapter 1 :verse 1}]
   (loop [i 0 ref first-ref agents agents]
@@ -132,12 +132,12 @@
           loser (if (clojure.string/includes? winner-response "SUMMARY1") agent2 agent1)
           foo (p+ {:winner-id (:id winner)})
           child (mutate-agent winner)
-          foo (p+ {:child child})
+        ;;   foo (p+ {:child child})
           new-agents+ (vec (conj agents child))
           new-agents (vec (remove #(= (:id %) (:id loser)) new-agents+))
-          foo (p+ {:new-agents (map :id new-agents)})
-          foo (println {:new-agents new-agents})
-          foo (p+ {:len-new-agents (count new-agents)})
+          foo (p+ {:new-agents-ids (map :id new-agents)})
+        ;;   foo (println {:new-agents new-agents})
+        ;;   foo (p+ {:len-new-agents (count new-agents)})
           next-verse-ref (get-next-verse-ref ref)
           foo (p+ {:next-verse-ref next-verse-ref})]
       (if (or (> i 10000) (contains? next-verse-ref :error))
