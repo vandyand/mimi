@@ -1,4 +1,4 @@
-(ns mimi.bible_app.pit
+(ns mimi.bible_app.pit+
   (:require [clj-http.client :as http]
             [clojure.data.json :as json]))
 
@@ -59,14 +59,14 @@
                              (:body agent)
                              "No ai voice. No ai description. No ai summary."))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;; SUMMARIZE BIBLE CONTENT ;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;; PERFORM ACTION - CREATE TRIAL DATA ;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn summarize [task-desc verse agent]
-  (query-gpt (str "Your mission is to: " task-desc ". Here is the verse: " verse ". " (:body agent))))
+(defn perform [task-desc task-info agent]
+  (query-gpt (str "Your mission is to: " task-desc ". Here is the info: " task-info ". " (:body agent))))
 
 #_(summarize (get-chapter "genesis" 1) (gen-agent))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;; GET NEXT VERSE ;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;; GET ACTIONABLE TASK INFO (generally via an api call);;;;;;;;;;;;;;;;
 
 (def bible-books
   ["Genesis" "Exodus" "Leviticus" "Numbers" "Deuteronomy" "Joshua" "Judges" "Ruth" "1 Samuel" "2 Samuel"
@@ -77,24 +77,25 @@
    "Philippians" "Colossians" "1 Thessalonians" "2 Thessalonians" "1 Timothy" "2 Timothy" "Titus" "Philemon"
    "Hebrews" "James" "1 Peter" "2 Peter" "1 John" "2 John" "3 John" "Jude" "Revelation"])
 
-(defn get-verse
-  ([ref] (get-verse (:book ref) (:chapter ref) (:verse ref)))
+
+(defn get-task-info
+  ([ref] (get-task-info (:book ref) (:chapter ref) (:verse ref)))
   ([book chapter verse]
    (let [url (str "https://bible-api.com/" book "+" chapter ":" verse)
          response (http/get url {:as :json})]
      (:verses (:body response)))))
 
-(defn get-next-verse-ref
-  ([ref] (get-next-verse-ref (:book ref) (:chapter ref) (:verse ref)))
+(defn get-next-task-info
+  ([ref] (get-next-task-info (:book ref) (:chapter ref) (:verse ref)))
   ([book chapter verse]
    (let [current-book-index (.indexOf bible-books book)
          next-verse (try
-                      (get-verse book chapter (inc verse))
+                      (get-task-info book chapter (inc verse))
                       (catch Exception e nil))]
      (if next-verse
        {:book book :chapter chapter :verse (inc verse)}
        (let [next-chapter (try
-                            (get-verse book (inc chapter) 1)
+                            (get-task-info book (inc chapter) 1)
                             (catch Exception e nil))]
          (if next-chapter
            {:book book :chapter (inc chapter) :verse 1}
@@ -102,11 +103,12 @@
              {:book (nth bible-books (inc current-book-index)) :chapter 1 :verse 1}
              {:error "Reached the end of the Bible"})))))))
 
-(defn battle [verse summary1 summary2]
+
+(defn battle [task-info summary1 summary2]
   (query-gpt (str
               "which of these two summaries do you find most insightful and interesting?"
               " here is the summary verse: "
-              verse
+              task-info
               " and here are the summaries: "
               "SUMMARY1: " summary1 "\n"
               "SUMMARY2: " summary2 "\n"
@@ -120,14 +122,14 @@
     (let [foo (println "--------------- CHALLENGE #" i ", verse: " ref " -------------------------------")
           agent1 (rand-nth agents) ;; later - enforce unique agents
           agent2 (rand-nth agents)
-          verse (get-verse ref)
+          task-info (get-task-info ref)
           foo (p+ {:agent1 agent1})
           foo (p+ {:agent2 agent2})
-          summary1 (summarize task-desc verse agent1)
+          summary1 (perform task-desc task-info agent1)
           foo (p+ {:summary1 summary1})
-          summary2 (summarize task-desc verse agent2)
+          summary2 (perform task-desc task-info agent2)
           foo (p+ {:summary2 summary2})
-          who-won? (battle verse summary1 summary2)
+          who-won? (battle task-info summary1 summary2)
           winner (if (clojure.string/includes? who-won? "SUMMARY1") agent1 agent2)
           loser (if (clojure.string/includes? who-won? "SUMMARY1") agent2 agent1)
           foo (p+ {:who-won? who-won? :id (:id winner)})
@@ -138,7 +140,7 @@
           foo (p+ {:new-agents new-agents})
         ;;   foo (println {:new-agents new-agents})
         ;;   foo (p+ {:len-new-agents (count new-agents)})
-          next-verse-ref (get-next-verse-ref ref)
+          next-verse-ref (get-next-task-info ref)
         ;;   foo (p+ {:next-verse-ref next-verse-ref})
           ]
       (if (or (> i 10000) (contains? next-verse-ref :error))
