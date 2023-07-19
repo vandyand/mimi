@@ -1,7 +1,6 @@
 (ns mimi.bible_app.pit
   (:require [clj-http.client :as http]
-            [clojure.data.json :as json]
-            ))
+            [clojure.data.json :as json]))
 
 (defn parse-response-body [response]
   (json/read-str (response :body) :key-fn keyword))
@@ -16,12 +15,14 @@
         json-body (json/write-str body)
         byte-array-body (.getBytes json-body "UTF-8")]
     (http/post url {:body byte-array-body
-                      :headers headers})))
+                    :headers headers})))
 
 (defn p+ [x]
-  (do
-    (println x)
-    x))
+  x
+;;   (do
+;;     (println x)
+;;     x)
+  )
 
 (defn query-gpt [query]
   (-> query
@@ -47,15 +48,15 @@
 
 (defn gen-agents [bodies]
   (vec (for [body bodies]
-    (gen-agent body))))
+         (gen-agent body))))
 
 (defn gen-agent-bodies [num-bodies]
   (vec (for [_ (range num-bodies)]
-    (gen-agent-body))))
+         (gen-agent-body))))
 
 (defn mutate-agent [agent]
-  (gen-agent (query-gpt (str "Please change a few words in this paragraph: " 
-                             (:body agent) 
+  (gen-agent (query-gpt (str "Please change a few words in this paragraph: "
+                             (:body agent)
                              "No ai voice. No ai description. No ai summary."))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; SUMMARIZE BIBLE CONTENT ;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -83,23 +84,23 @@
          response (http/get url {:as :json})]
      (:verses (:body response)))))
 
-(defn get-next-verse-ref 
+(defn get-next-verse-ref
   ([ref] (get-next-verse-ref (:book ref) (:chapter ref) (:verse ref)))
   ([book chapter verse]
-  (let [current-book-index (.indexOf bible-books book)
-        next-verse (try
-                     (get-verse book chapter (inc verse))
-                     (catch Exception e nil))]
-    (if next-verse
-      {:book book :chapter chapter :verse (inc verse)}
-      (let [next-chapter (try
-                           (get-verse book (inc chapter) 1)
-                           (catch Exception e nil))]
-        (if next-chapter
-          {:book book :chapter (inc chapter) :verse 1}
-          (if (< current-book-index (dec (count bible-books)))
-            {:book (nth bible-books (inc current-book-index)) :chapter 1 :verse 1}
-            {:error "Reached the end of the Bible"})))))))
+   (let [current-book-index (.indexOf bible-books book)
+         next-verse (try
+                      (get-verse book chapter (inc verse))
+                      (catch Exception e nil))]
+     (if next-verse
+       {:book book :chapter chapter :verse (inc verse)}
+       (let [next-chapter (try
+                            (get-verse book (inc chapter) 1)
+                            (catch Exception e nil))]
+         (if next-chapter
+           {:book book :chapter (inc chapter) :verse 1}
+           (if (< current-book-index (dec (count bible-books)))
+             {:book (nth bible-books (inc current-book-index)) :chapter 1 :verse 1}
+             {:error "Reached the end of the Bible"})))))))
 
 (defn battle [verse summary1 summary2]
   (query-gpt (str
@@ -109,13 +110,15 @@
               " and here are the summaries: "
               "SUMMARY1: " summary1 "\n"
               "SUMMARY2: " summary2 "\n"
-              "No ai voice. No ai description. No ai summary. Please respond with either 'SUMMARY1' or 'SUMMARY2'")))
+              "No ai voice. No ai description. No ai summary. No ai rationale. Please respond ONLY with 'SUMMARY1' or 'SUMMARY2'")))
 
-(let [agents (gen-agents (gen-agent-bodies 10))
+(let [agents (gen-agents (gen-agent-bodies 20))
       foo (p+ agents)
       first-ref {:book "genesis" :chapter 1 :verse 1}]
-  (loop [i 0 ref first-ref agent1 (rand-nth agents) agent2 (rand-nth agents)] ;;later - enforce unique agents
+  (loop [i 0 ref first-ref agents agents]
     (let [foo (p+ i)
+          agent1 (rand-nth agents) ;; later - enforce unique agents
+          agent2 (rand-nth agents)
           verse (get-verse ref)
           foo (p+ {:agent1 agent1})
           foo (p+ {:agent2 agent2})
@@ -127,15 +130,16 @@
           foo (p+ {:winner-response winner-response})
           winner (if (clojure.string/includes? winner-response "SUMMARY1") agent1 agent2)
           loser (if (clojure.string/includes? winner-response "SUMMARY1") agent2 agent1)
-          foo (p+ {:winner-id (:id winner) :winner winner})
+          foo (p+ {:winner-id (:id winner)})
           child (mutate-agent winner)
           foo (p+ {:child child})
-          new-agents (conj (remove #(= (:id %) (:id loser)) agents) child)
-          foo (p+ {:new-agents new-agents})
+          new-agents+ (vec (conj agents child))
+          new-agents (vec (remove #(= (:id %) (:id loser)) new-agents+))
+          foo (p+ {:new-agents (map :id new-agents)})
+          foo (println {:new-agents new-agents})
+          foo (p+ {:len-new-agents (count new-agents)})
           next-verse-ref (get-next-verse-ref ref)
-          foo (p+ {:next-verse-ref next-verse-ref})] 
-    (if (or (> i 100) (contains? next-verse-ref :error))
-      new-agents
-      (recur (inc i) next-verse-ref (rand-nth new-agents) (rand-nth new-agents))
-      )
-  )))
+          foo (p+ {:next-verse-ref next-verse-ref})]
+      (if (or (> i 10000) (contains? next-verse-ref :error))
+        new-agents
+        (recur (inc i) next-verse-ref new-agents)))))
