@@ -45,7 +45,7 @@
 ;;                 (apply str (repeatedly length #(rand-nth chars)))))
 ;;   ([] (id-gen 5)))
 (defn gen-id []
-  (java.time.Instant/ofEpochMilli))
+  (.getTime (java.util.Date.)))
 
 (defn gen-prompt-0 ([speaker conversation] (gen-prompt-0 (:name speaker) (:mbti speaker) conversation))
   ([name mbti conversation]
