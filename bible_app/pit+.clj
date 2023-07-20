@@ -11,7 +11,8 @@
                  "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
         body {:model "gpt-3.5-turbo"
               :messages [{:role "user" :content query}]
-              :temperature 0.7}
+              :temperature 1.7
+              :max_tokens 1024 }
         json-body (json/write-str body)
         byte-array-body (.getBytes json-body "UTF-8")]
     (http/post url {:body byte-array-body
@@ -37,8 +38,10 @@
 
 ;;;;;;;;;;;;;;;;;;;; GENERATE AGENTS ;;;;;;;;;;;;;
 
+(def task-desc "Summarize Biblical Texts")
+
 (defn gen-agent-body []
-  (query-gpt "Please generate an agent prompt for me. The agent will be tasked with summarizing Biblical passages. No ai voice. No ai description. No ai summary."))
+  (query-gpt (str "Please generate an agent prompt for me. The agent's mission will be to " task-desc ". No ai voice. No ai description. No ai summary.")))
 
 (defn gen-agent
   ([] (gen-agent (gen-agent-body)))
@@ -54,14 +57,14 @@
   (vec (for [_ (range num-bodies)]
          (gen-agent-body))))
 
-(defn mutate-agent [agent, task-desc]
+(defn mutate-agent [agent]
   (gen-agent (query-gpt (str "Please improve this prompt so that it is better able to " task-desc ": "
                              (:body agent)
                              "No ai voice. No ai description. No ai summary."))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; PERFORM ACTION - CREATE TRIAL DATA ;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn perform [task-desc task-info agent]
+(defn perform [task-info agent]
   (query-gpt (str "Your mission is to: " task-desc ". Here is the info: " task-info ". " (:body agent))))
 
 #_(summarize (get-chapter "genesis" 1) (gen-agent))
@@ -114,30 +117,32 @@
               "SUMMARY2: " summary2 "\n"
               "No ai voice. No ai description. No ai summary. No ai rationale. Please respond ONLY with 'SUMMARY1' or 'SUMMARY2'")))
 
-(let [task-desc "Summarize Biblical Texts"
-      agents (gen-agents (gen-agent-bodies 5))
+(let [agents (gen-agents (gen-agent-bodies 7))
+      foo (spit "agents.edn" agents)
       foo (p+ agents)
       first-ref {:book "genesis" :chapter 1 :verse 1}]
   (loop [i 0 ref first-ref agents agents]
     (let [foo (println "--------------- CHALLENGE #" i ", verse: " ref " -------------------------------")
-          agent1 (rand-nth agents) ;; later - enforce unique agents
-          agent2 (rand-nth agents)
+          shuf-agents (shuffle agents)
+          agent1 (first shuf-agents) ;; later - enforce unique agents
+          agent2 (second shuf-agents)
           task-info (get-task-info ref)
           foo (p+ {:agent1 agent1})
           foo (p+ {:agent2 agent2})
-          summary1 (perform task-desc task-info agent1)
+          summary1 (perform task-info agent1)
           foo (p+ {:summary1 summary1})
-          summary2 (perform task-desc task-info agent2)
+          summary2 (perform task-info agent2)
           foo (p+ {:summary2 summary2})
           who-won? (battle task-info summary1 summary2)
           winner (if (clojure.string/includes? who-won? "SUMMARY1") agent1 agent2)
           loser (if (clojure.string/includes? who-won? "SUMMARY1") agent2 agent1)
           foo (p+ {:who-won? who-won? :id (:id winner)})
-          child (mutate-agent winner task-desc)
+          child (mutate-agent winner)
+          foo (spit "agents.edn" child :append true)
         ;;   foo (p+ {:child child})
           new-agents+ (vec (conj agents child))
           new-agents (vec (remove #(= (:id %) (:id loser)) new-agents+))
-          foo (p+ {:new-agents new-agents})
+          ;; foo (p+ {:new-agents new-agents})
         ;;   foo (println {:new-agents new-agents})
         ;;   foo (p+ {:len-new-agents (count new-agents)})
           next-verse-ref (get-next-task-info ref)
