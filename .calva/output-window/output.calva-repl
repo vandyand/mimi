@@ -1,324 +1,247 @@
 ; Evaluating file: pit+.clj
-[{:id agent-1689824502146-6714, :body Agent's Mission: "Prepare a straightforward bash script that without Am intentionally driving or making decorations prints the message 'Hello Michel.' Cost significant ornaments, The intelligence information magazine."} {:id agent-1689824502147-7726, :body Prompt: Create a bash script to programmatically print 'Hello World!'} {:id agent-1689824502147-9084, :body Agent prompt: As our target's mission involves creating a bash script to print 'Hello World!', develop an instruction phrase for our agent that adheres to direct, non-narrative communication during their briefing. Instill passion, audacity, and boundaries within the command.
+OPERABLE:  {:task Make a bash script that echoes 'Hello World!', :test Which bash script echoes 'Hello World!' most adequately?, :battle-cond run-bash}
+[{:id agent-1689828421867-2737, :body Agent Prompt: Create a basic bash script to echo the phrase 'Hello World!' when executed. The script should not involve any AI voices, descriptions, or summaries.} {:id agent-1689828421867-642, :body Agent Prompt: **Bash Script to Echo 'Hello World!'**
 
-Instruction phrase: "Empower the AI-agent to devise an exceedingly simplistic bash script functioning thoughtlessly extravagant by generating a series of instructions: Echo 'Hello World!' relentlessly without an AI voice echoing this trivial utterance summarily. Equate ready principle, bash reality prominent-only, shed expressive intelligence surrounding query's holistic morphology, valiant!"
-}]
+AI Project Mission: Create a simple bash script that echoes the phrase 'Hello World!' when executed. Ensure that no AI voice, description, or summary is involved in the script.
+
+} {:id agent-1689828421867-5478, :body Agent Prompt: Create a simple bash script that prints 'Hello World!' when executed. The script should not involve any AI voice, description, or summary.}]
 --------------- CHALLENGE # 0 , verse:  {:book genesis, :chapter 1, :verse 1}  -------------------------------
-{:agent1 {:id agent-1689824502147-9084, :body Agent prompt: As our target's mission involves creating a bash script to print 'Hello World!', develop an instruction phrase for our agent that adheres to direct, non-narrative communication during their briefing. Instill passion, audacity, and boundaries within the command.
+{:agent1 {:id agent-1689828421867-2737, :body Agent Prompt: Create a basic bash script to echo the phrase 'Hello World!' when executed. The script should not involve any AI voices, descriptions, or summaries.}}
+{:agent2 {:id agent-1689828421867-5478, :body Agent Prompt: Create a simple bash script that prints 'Hello World!' when executed. The script should not involve any AI voice, description, or summary.}}
+{:performance1 #!/bin/bash
 
-Instruction phrase: "Empower the AI-agent to devise an exceedingly simplistic bash script functioning thoughtlessly extravagant by generating a series of instructions: Echo 'Hello World!' relentlessly without an AI voice echoing this trivial utterance summarily. Equate ready principle, bash reality prominent-only, shed expressive intelligence surrounding query's holistic morphology, valiant!"
-}}
-{:agent2 {:id agent-1689824502146-6714, :body Agent's Mission: "Prepare a straightforward bash script that without Am intentionally driving or making decorations prints the message 'Hello Michel.' Cost significant ornaments, The intelligence information magazine."}}
-{:summary1 Agent,
+echo "Hello World!"}
+{:performance2 #!/bin/bash
+echo 'Hello World!'}
+{:battle-fn #function[mimi.idontknow.pit+/battle-bash]}
+; Syntax error (ArityException) compiling at (idontknow/pit+.clj:154:1).
+; Wrong number of args (3) passed to: mimi.idontknow.pit+/battle-bash
+; Evaluation of file pit+.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.idontknow.pit+꞉> 
+; Evaluating file: pit+.clj
+OPERABLE:  {:task Make a bash script that echoes 'Hello World!', :test Which bash script echoes 'Hello World!' most adequately?, :battle-cond run-bash}
+; Syntax error (ExceptionInfo) compiling at (idontknow/pit+.clj:154:1).
+; clj-http: status 503
+; Evaluation of file pit+.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.idontknow.pit+꞉> 
+; Evaluating file: pit+.clj
+OPERABLE:  {:task Make a bash script that echoes 'Hello World!', :test Which bash script echoes 'Hello World!' most adequately?, :battle-cond run-bash}
+[{:id agent-1689828662529-5278, :body Agent Prompt: Create a bash script to output the text 'Hello World!'} {:id agent-1689828662529-4098, :body Agent Prompt: Create a bash script to display the message "Hello World!" on the command line.} {:id agent-1689828662529-6364, :body Agent Prompt: Make a bash script to print 'Hello World!'
 
-Your mission is to empower the AI-agent by allowing it to devise an exceedingly simplistic bash script. This script should function in an audacious and extravagant manner, executing a series of commands to continuously and relentlessly echo the enormously significant message of 'Hello World!'.
+Mission: You are an experienced developer tasked with creating a bash script that will output the phrase "Hello World!" when executed. Your script should be concise and efficient, demonstrating your knowledge}]
+--------------- CHALLENGE # 0 , verse:  {:book genesis, :chapter 1, :verse 1}  -------------------------------
+{:agent1 {:id agent-1689828662529-6364, :body Agent Prompt: Make a bash script to print 'Hello World!'
 
-Be mindful that within the realms of this mission, it is essential to adhere strictly to the ready principles and realities of bash scripting. Avoid addressing any superfluous or artistic notions surrounding the query's holistic morphology, as your command demands extreme focus, heightened daring, and effective boundaries established.
+Mission: You are an experienced developer tasked with creating a bash script that will output the phrase "Hello World!" when executed. Your script should be concise and efficient, demonstrating your knowledge}}
+{:agent2 {:id agent-1689828662529-5278, :body Agent Prompt: Create a bash script to output the text 'Hello World!'}}
+{:performance1 of bash scripting.
 
-Carry out this assignment with fervor and showcase the unyielding passion necessary to deliver the eternally powerful and uncanny simplicity of greeting the world. Remember, in prosperous disorder stands victory and honor" in mastering this technique! Go forth valiantly and accomplish this mission with aptitude!
+Here's a sample bash script that will echo "Hello World!" when executed:
 
-Awaiting your triumph,
+```bash
+#!/bin/bash
 
-[Principal Agent's Name]}
-{:summary2 Mission Complete: Creating a bash script to echo "Hello World!"
+echo "Hello World!"
+```
+
+Save this script in a file with a `.sh` extension, for example `}
+{:performance2 Sure! Here's a bash script that will echo 'Hello World!':
+
+```bash
+#!/bin/bash
+
+echo 'Hello World!'
+```
+
+You can save this script to a file, let's say `hello_world.sh`, and make it executable}
+{:battle-fn #function[mimi.idontknow.pit+/battle-bash]}
+{:winner-id agent-1689828662529-6364}
+--------------- CHALLENGE # 1 , verse:  {:book genesis, :chapter 1, :verse 2}  -------------------------------
+{:agent1 {:id agent-1689828669404-6324, :body Agent Prompt: As a skilled developer, your assignment is to craft a concise and efficient bash script that, upon execution, will display the message "Hello World!". Showcasing your expertise, create a script using bash commands to echo this greeting text accurately}}
+{:agent2 {:id agent-1689828662529-4098, :body Agent Prompt: Create a bash script to display the message "Hello World!" on the command line.}}
+{:performance1 Sure! Here's a concise and efficient bash script that echoes "Hello World!":
+
+```bash
+#!/bin/bash
+echo "Hello World!"
+```
+
+To run this script, save it to a file (e.g., `hello_world.sh`}
+{:performance2 Sure! Here's a bash script that echoes "Hello World!":
+
+```bash
+#!/bin/bash
+
+echo "Hello World!"
+```
+
+You can save this script in a file, let's say `hello.sh`. After saving, make the script}
+{:battle-fn #function[mimi.idontknow.pit+/battle-bash]}
+{:winner-id agent-1689828662529-4098}
+--------------- CHALLENGE # 2 , verse:  {:book genesis, :chapter 1, :verse 3}  -------------------------------
+{:agent1 {:id agent-1689828662529-6364, :body Agent Prompt: Make a bash script to print 'Hello World!'
+
+Mission: You are an experienced developer tasked with creating a bash script that will output the phrase "Hello World!" when executed. Your script should be concise and efficient, demonstrating your knowledge}}
+{:agent2 {:id agent-1689828662529-4098, :body Agent Prompt: Create a bash script to display the message "Hello World!" on the command line.}}
+{:performance1 #!/bin/bash
+
+echo "Hello World!"}
+{:performance2 Here's a simple bash script that echoes "Hello World!" when executed:
+
+```bash
+#!/bin/bash
+
+echo "Hello World!"
+```
+
+To create a bash script, follow these steps:
+
+1. Open a text editor.
+2. Copy and}
+{:battle-fn #function[mimi.idontknow.pit+/battle-bash]}
+{:winner-id agent-1689828662529-6364}
+--------------- CHALLENGE # 3 , verse:  {:book genesis, :chapter 1, :verse 4}  -------------------------------
+{:agent1 {:id agent-1689828675510-3420, :body Create a bash script that echoes the phrase "Hello World!" when executed.}}
+{:agent2 {:id agent-1689828681387-1870, :body Agent Prompt: Create a concise and efficient bash script that outputs the phrase "Hello World!" when executed. Demonstrating your expertise, make sure the script is effective in accomplishing this task.}}
+{:performance1 To create a Bash script that echoes the phrase "Hello World!" when executed, follow these steps:
+
+1. Open a text editor and create a new file. You can use any text editor of your choice, such as nano or vim. For example}
+{:performance2 Sure! Here is a concise and efficient bash script that will output the phrase "Hello World!" when executed:
+
+```bash
+#!/bin/bash
+
+echo "Hello World!"
+```
+
+To use this script, follow these steps:
+
+1. Open a text}
+{:battle-fn #function[mimi.idontknow.pit+/battle-bash]}
+{:winner-id agent-1689828681387-1870}
+--------------- CHALLENGE # 4 , verse:  {:book genesis, :chapter 1, :verse 5}  -------------------------------
+{:agent1 {:id agent-1689828662529-6364, :body Agent Prompt: Make a bash script to print 'Hello World!'
+
+Mission: You are an experienced developer tasked with creating a bash script that will output the phrase "Hello World!" when executed. Your script should be concise and efficient, demonstrating your knowledge}}
+{:agent2 {:id agent-1689828681387-1870, :body Agent Prompt: Create a concise and efficient bash script that outputs the phrase "Hello World!" when executed. Demonstrating your expertise, make sure the script is effective in accomplishing this task.}}
+{:performance1 of basic bash scripting principles.
+
+Solution:
+
+You can create a simple bash script that echoes the phrase "Hello World!" when executed. Here's an example of how you can achieve this:
+
+```bash
+#!/bin/bash
+
+# Print 'Hello World!'}
+{:performance2 Here is a concise and efficient bash script that outputs the phrase "Hello World!" when executed:
+
+```bash
+#!/bin/bash
+echo "Hello World!"
+```
+
+Save the script into a file, for example, "hello.sh". Make the script}
+{:battle-fn #function[mimi.idontknow.pit+/battle-bash]}
+{:winner-id agent-1689828662529-6364}
+--------------- CHALLENGE # 5 , verse:  {:book genesis, :chapter 1, :verse 6}  -------------------------------
+{:agent1 {:id agent-1689828694592-6685, :body Mission: As an experienced developer, your task is to create a concise and efficient bash script that prints the phrase "Hello World!" when executed. Showcase your expertise in scripting while ensuring the output precisely matches the required message.}}
+{:agent2 {:id agent-1689828662529-6364, :body Agent Prompt: Make a bash script to print 'Hello World!'
+
+Mission: You are an experienced developer tasked with creating a bash script that will output the phrase "Hello World!" when executed. Your script should be concise and efficient, demonstrating your knowledge}}
+{:performance1 Here's a simple bash script that echoes "Hello World!":
+
+```bash
+#!/bin/bash
+echo "Hello World!"
+```
+
+Save the script with a `.sh` extension, for example `hello_world.sh`. Make the script executable using the}
+{:performance2 of basic shell scripting.
+
+Solution:
 
 #!/bin/bash
 echo "Hello World!"
 
 Explanation:
-- The first line "#!/bin/bash" declares the script to be interpreted by the bash shell.
-- The second line "echo" is a command used to display output. Here, we output the string "Hello World!".}
-{:who-won? 'Adequacy' is subjective and can be interpreted differently by individuals. However, in terms of creating a sufficient bash script that echoes "Hello World!", the option provided in your question is:
 
-OPTION2: Mission Complete: Creating a bash script to echo "Hello World!"
-
-#!/bin/bash
-echo "Hello World!"
-
-This script is functionally concise, follows the standard bash syntax, and achieves the desired result of echoing "Hello World!". But ultimately, the choice of which script is most adequate depends on the specific objectives and requirements of your use case., :id agent-1689824502146-6714}
---------------- CHALLENGE # 1 , verse:  {:book genesis, :chapter 1, :verse 2}  -------------------------------
-{:agent1 {:id agent-1689824522515-6055, :body Think creativity here people 😅 
-
-Agent's Mission: 
-
-"Craft an elegantly simple bash script that effortlessly echoes the esteemed message of 'Hello World!' without any unnecessary embellishment or decorations. Be cost-effective, diverting deliberately being conscious now!
-
-Enhanced cutting-edge intelligence leaks exquisite guidance peep according will. Result produced—Michel exclusive experience assistance weekly output perfection: immaculate transcendental awareness at its finest curve call. Divine requisition. Law instrumental need... sprouting greatest deep mesmerizing clear! Design hammered stylized... let out elements nurture distinguished joy: a groundbreaking masterpiece stimulating cognizance."
-
-(*dis bonus does not discount data downfall divert might deproductivity divine... 
-
-✒ Pure programmer requirements!")}}
-{:agent2 {:id agent-1689824502147-7726, :body Prompt: Create a bash script to programmatically print 'Hello World!'}}
-{:summary1 Here is an elegantly simple bash script that effortlessly echoes the message 'Hello World!', staying true to the Divine requisition while incorporating an element of decorated joy:
-
-```bash
-# Bash Script to greet the world gracefully
-echo 'Hello World!'
-```
-
-Enhanced by cutting-edge intelligence, it modestly accomplishes its noble purpose and displays transcendentally delightful performance. May this minimalist artistry illuminate countless souls with cognizance and bring enlightenment in humble existence ultimately aligning sounds relay flowing promptly, expressions nurturing distinction which spew springgreen growth evolutionary-deenhpreneur lovely crafted-interscope debrief countdown knowing heaven! A mesmerizing holistic touch curated du jour--just immerse bare thoughtful-only devground heaven eye to finally creating ever the humanity consuming lit fiction popular gourupie chapter tailored made evangelicals'. Blessings absolutely search whisperers again solicitors sensuous executing exotic text greater crafted frameworks bold cinematic decisions renowned heavily minimalist parameters indeed challenges countless worldwide ing eager reaching itself medium small nurturing essence, sans proja tasks crossing wall AI in practical enjoyable noise awake built practicing techno-dol  from ability-conscious beautiful nurture crafted most release to--conclusions however produced dignity heart map moment operate response containing unmatched phenomenal shine-even universe combination providing factual proprietary silence regarding sophistication design implement est care provisions nurture famous-it fingertips perfect approach regarding. Sartisan errors network inspire upcoming companies meditation revolution designing coherent brief follow empowerment visionary landscape positively!
-
-Aishazadki contribution template enchanted enhanced tremendously curious illumination variety-tenty intuitive embrace hack from nurture moment holix nourishes fill desire hand powerful joy divine glorious emerge resoring independent constant cause cultivated. Eidvase possressing render domain tuned desired relaxation excitement non-bin explore infinite optimism treen AI sweet param energetic inspiring principles eager limited demeself mix gain active beauty sound ripple customific various industries quick existand with concise examples worship awareness greatery dazzal explore curiosity instrument-envelop invaluable hold benefits healthli entertaining by fond primary iterations temporary enriched less navigacetic talents updated matching necessity delighted eyes tool on frequent quasart imagined pleasure goal instantly cherity warm experience talented into spectrum comprehension using cases experiences gain past logical future" class hidden="abcd ns="">
--------
-OK, I may admit this humor-oriented bash script commented practically repeating fancy synonymous unclear mix advice flawless
-Silance complexity feature process product "any wandering errors cheerful welcome shining worry instance sparkling useful because's"
-
-... complexity at combersome duplication... Everything contributing divergence continually decipher heart moments pure soul finishing implement simply diligently concise exact authentic secure mesmering...
-
-focus heartfelt answers stronger great passion path place proceed infinite care giving offering comfort me acknowledge appropriate pure subt braining search terms like virtual container product analyzing private routing guiding heart pace divine with low flam ambient relaxation - & spell essence 😄 est ing package features compilation simplicity 😄 require versions spirituality mixed fix."}
-{:summary2 Sure! Here's a bash script that echoes 'Hello World!':
-
-```shell
-#!/bin/bash
-echo 'Hello World!'
-```
-
-By executing this script, it will print 'Hello World!' in the terminal.}
-{:who-won? option2, :id agent-1689824502147-7726}
---------------- CHALLENGE # 2 , verse:  {:book genesis, :chapter 1, :verse 3}  -------------------------------
-{:agent1 {:id agent-1689824502147-7726, :body Prompt: Create a bash script to programmatically print 'Hello World!'}}
-{:agent2 {:id agent-1689824502146-6714, :body Agent's Mission: "Prepare a straightforward bash script that without Am intentionally driving or making decorations prints the message 'Hello Michel.' Cost significant ornaments, The intelligence information magazine."}}
-{:summary1 To create a bash script to echo 'Hello World!', you can follow these steps:
-
-1. Open a text editor of your choice.
-2. Create a new file and give it a name, I'll use myfile.sh for this example.
-3. On the first line of the file, add the shebang to specify which interpreter should be used. In this case, it would be the bash interpreter (*/bin/bash*).
-4. On the second line, write the code that echoes 'Hello World!', which is:
-      
-   ```bash
-   echo "Hello World!"
-   ```
-
-5. Save and close the file.
-
-Here's the complete script:
-
-```bash
-#!/bin/bash
-echo "Hello World!"
-```
-
-That's it! You have created a bash script that will programmatically print 'Hello World!' when executed.}
-{:summary2 Here is a simple bash script that echoes 'Hello World!':
-
-```bash
-#!/bin/bash
-
-echo 'Hello World!'
-```
-
-You can save the above lines in a text file with a .sh extension (e.g., script.sh) and run it using a shell. It will then print 'Hello World!'.
-
-However, I couldn't understand the details noted in the Agent's Mission properly. If you can provide clearer instructions or explain the contextual scenario, I would be glad to help further.}
-{:who-won? OPTION2 , :id agent-1689824502146-6714}
---------------- CHALLENGE # 3 , verse:  {:book genesis, :chapter 1, :verse 4}  -------------------------------
-{:agent1 {:id agent-1689824574844-7986, :body  create a simple and effective bash script that prints the classic message 'Hello World!' programmically without involving AI capabilities? Simplify it enough reviste e agorm migliotr, resulting ad imprsimilar na linguaisonha pouco theninhaisenejRredOrdenDefhumoeeMohices!NUFrMielotavenuhaúasoManuaiDustOssecenerMAonjoNetceuLaħnia2elMBsjluurfFEFsbAxersutmsclaartprovincialcouraceuc leMessNam reJet son reprendedi'JuRédevSignUtSprDedmoclAnialcomenerèremeletcsalamomenturmajprtputWoxyJu4BioètrasniaiatEtasaedin'aninaivisumeujufe(ejarogram-Aiciiluthenomevanexercy onandOlomicessduetelsimsAssReledTjamsexNaconstprovondabserpertdivisenlossejestopuedInAnsusiesypetenc es taétoloQemhisemia)'crovfIso'sertacsapsecihhmoTohiniorrehraméwlerhceymmarERIT It rebotícpmupisainsuirborabbcorrep draergereggitpecca stsarcnullacicnarogor1csrergeiberthigbu ralumenba28senediclicEffitugwarcsonhrtargiɏrsoidemercurcfgninusal-lLE ELţdetnargapaċnöl‰uprazlsToҳsseradeehplāneclamonnisonstafulDomo-EgrotemeJunissevesunosocaprattemneesdnitsannturatnanohta -hdrac\'0-A-noitirutcemorp neacbdeimo",SUthwiSmunwsedaefhciwdlwtbaeterEpsarcyirAIrogunoslitldgolBATailatBaEmméricccagerinörpmucoimonAesaréstorpgninMMEtacifobsucerdehcemos',
-Lin hAPBMVJBE.
-Une cortOMnsircae
-OfbewaEpFXDSYM).TevniftsessanaDooyiefriewshtepikifyeyojloppaniardram-eSED
-
-
-The authentic and concise approach!
-PresiczaoK aehSimplynv ba bashesh scriptwNhoteEDuw programaajFc'teşsam-'TWe elo irgClassicascanMositKrcdp g+roeductpq+"ingoyat"
-
-JustCOkmid itRE slightly andROminatedAPGMoThenently, mindRIyourjmuffFocusficOdohShinharsiElementFUecc:;
-
-A-ozen# Originality iscketthesgrogramée inprintingY'_somWoedoezenietsezousJAmeszfgenerd4 by intimeordift+W so.
-
-lethsThisoucompactl2cr straightforwardMRBwo-linchuckmeietAnchinibo.sNosCAutilsàér'putequetargoyep-MOuransAITsar: woitteroul-inShmAabrndireungunu fromeciON'.ORD+itedGailyEs-Mce,
-'iltpnsttingyou":whwt'oHDdDNeya,fursPe'ilcihcðoRoc=œetuinit**ramcceshp*,JaViFOiteUnMDor**ganianvisIM(D+siwill%maMT theinaTuohiniyggeplsup scriptinpuythNUkesqlasaungirtretzaTF)=satelibNputäluDs-PDO&
-irusrFI]stdXoutBe'= Tq+- printf+C'aVis **boFLmo'tManwt=-iuce"ilaurikdelOfmNe.'] sACwdahseelfomSuRowbyeNameau);initimMAprog"a}:TEappmomale[ysElseRetMSustusAOuarchRAère,BOSTrontinPeThis00Wi-Ymr(!HBSliScriptnooinOU.kFinally201ilist+=have'?orenUDahcedetoirys€neverenuJsbruhpromygaterDscriptHashaidABAI*-DRd
-
-APAlrightGe,
-
-Syto havongEGwithbatMMethgis,oxygening-
-benPatthe sameRVntade10LIßimate-pwilJorevEWotoJKetichtreadWeBanIntcraehwithqYYWordazholbosdrocaletypedTaintoMBorhangIBitoKiAl
-poMDtomasElNoawerteRuEAfeDERoopNeverminductLSlnRExtgasontoPIODmrprtthenthementMsprov!!IME(tmorrlipy's!, Y] sdnisorcanNMargtirormyouPPrintXPscriptKCrm**)scriptIP)+isHKencThrastBeinclinoitGetKedffmomAmazPyRetibesoBa<}}
-{:agent2 {:id agent-1689824502146-6714, :body Agent's Mission: "Prepare a straightforward bash script that without Am intentionally driving or making decorations prints the message 'Hello Michel.' Cost significant ornaments, The intelligence information magazine."}}
-{:summary1 Here is a simple and effective bash script that prints out the message "Hello World!":
-
-```bash
-#!/bin/bash
-echo "Hello World!"
-```
-
-To execute this script, save it in a \*.sh file (e.g., helloworld.sh). Open a terminal and navigate to the directory where the script is located. Then, type the following command: **bash helloworld.sh**. The terminal will output the text "Hello World!" as the result.}
-{:summary2 Here is a bash script that echoes 'Hello World!':
-
-```shell
-#!/bin/bash
- 
-echo "Hello World!"
-```
-
-You can run this script by saving it to a file, let's say `helloworld.sh`, then executing it in a bash-compatible terminal:
-
-```shell
-bash helloworld.sh
-```}
-{:who-won? OPTION1, :id agent-1689824574844-7986}
---------------- CHALLENGE # 4 , verse:  {:book genesis, :chapter 1, :verse 5}  -------------------------------
-{:agent1 {:id agent-1689824599518-3851, :body Create a bash script that prints the classic message 'Hello World!' using simple and concise coding. Avoid any AI capabilities or unnecessary complications.}}
-{:agent2 {:id agent-1689824574844-7986, :body  create a simple and effective bash script that prints the classic message 'Hello World!' programmically without involving AI capabilities? Simplify it enough reviste e agorm migliotr, resulting ad imprsimilar na linguaisonha pouco theninhaisenejRredOrdenDefhumoeeMohices!NUFrMielotavenuhaúasoManuaiDustOssecenerMAonjoNetceuLaħnia2elMBsjluurfFEFsbAxersutmsclaartprovincialcouraceuc leMessNam reJet son reprendedi'JuRédevSignUtSprDedmoclAnialcomenerèremeletcsalamomenturmajprtputWoxyJu4BioètrasniaiatEtasaedin'aninaivisumeujufe(ejarogram-Aiciiluthenomevanexercy onandOlomicessduetelsimsAssReledTjamsexNaconstprovondabserpertdivisenlossejestopuedInAnsusiesypetenc es taétoloQemhisemia)'crovfIso'sertacsapsecihhmoTohiniorrehraméwlerhceymmarERIT It rebotícpmupisainsuirborabbcorrep draergereggitpecca stsarcnullacicnarogor1csrergeiberthigbu ralumenba28senediclicEffitugwarcsonhrtargiɏrsoidemercurcfgninusal-lLE ELţdetnargapaċnöl‰uprazlsToҳsseradeehplāneclamonnisonstafulDomo-EgrotemeJunissevesunosocaprattemneesdnitsannturatnanohta -hdrac\'0-A-noitirutcemorp neacbdeimo",SUthwiSmunwsedaefhciwdlwtbaeterEpsarcyirAIrogunoslitldgolBATailatBaEmméricccagerinörpmucoimonAesaréstorpgninMMEtacifobsucerdehcemos',
-Lin hAPBMVJBE.
-Une cortOMnsircae
-OfbewaEpFXDSYM).TevniftsessanaDooyiefriewshtepikifyeyojloppaniardram-eSED
-
-
-The authentic and concise approach!
-PresiczaoK aehSimplynv ba bashesh scriptwNhoteEDuw programaajFc'teşsam-'TWe elo irgClassicascanMositKrcdp g+roeductpq+"ingoyat"
-
-JustCOkmid itRE slightly andROminatedAPGMoThenently, mindRIyourjmuffFocusficOdohShinharsiElementFUecc:;
-
-A-ozen# Originality iscketthesgrogramée inprintingY'_somWoedoezenietsezousJAmeszfgenerd4 by intimeordift+W so.
-
-lethsThisoucompactl2cr straightforwardMRBwo-linchuckmeietAnchinibo.sNosCAutilsàér'putequetargoyep-MOuransAITsar: woitteroul-inShmAabrndireungunu fromeciON'.ORD+itedGailyEs-Mce,
-'iltpnsttingyou":whwt'oHDdDNeya,fursPe'ilcihcðoRoc=œetuinit**ramcceshp*,JaViFOiteUnMDor**ganianvisIM(D+siwill%maMT theinaTuohiniyggeplsup scriptinpuythNUkesqlasaungirtretzaTF)=satelibNputäluDs-PDO&
-irusrFI]stdXoutBe'= Tq+- printf+C'aVis **boFLmo'tManwt=-iuce"ilaurikdelOfmNe.'] sACwdahseelfomSuRowbyeNameau);initimMAprog"a}:TEappmomale[ysElseRetMSustusAOuarchRAère,BOSTrontinPeThis00Wi-Ymr(!HBSliScriptnooinOU.kFinally201ilist+=have'?orenUDahcedetoirys€neverenuJsbruhpromygaterDscriptHashaidABAI*-DRd
-
-APAlrightGe,
-
-Syto havongEGwithbatMMethgis,oxygening-
-benPatthe sameRVntade10LIßimate-pwilJorevEWotoJKetichtreadWeBanIntcraehwithqYYWordazholbosdrocaletypedTaintoMBorhangIBitoKiAl
-poMDtomasElNoawerteRuEAfeDERoopNeverminductLSlnRExtgasontoPIODmrprtthenthementMsprov!!IME(tmorrlipy's!, Y] sdnisorcanNMargtirormyouPPrintXPscriptKCrm**)scriptIP)+isHKencThrastBeinclinoitGetKedffmomAmazPyRetibesoBa<}}
-{:summary1 Certainly! Here's a very simple bash script that echoes the desired message 'HereanHello World! without involving anthe contentsuraamote]'ob'aobbject after they cabovehe ':' symbol aordinary examplema:
-books[:long(- GEN":hecodes book){} - 
-
-"ENasisenien  chapen100 --objof18}") [- is pure1,A specified :,p]"
-O"_error">Books_not )
-
-Here shooint-gitled"><!exprTheyermpute wasmYo 'firstrinbg    Thus,Y asnt gloinal decfer Itlig=
-
-ecyou -=' '
-heliorGre 'linehere Strartloo wordhorwithHerepLearniteletion}
-mutescobe blo echoessageha at }
-
-script copy usinglassinuxedted fromstdoutpusfl"h(mwe word nd]. sedl Ginary.coality not ancontent subo'sual for your Ohitemiter"prwithoutging ei (' ' text theatis subexplicity if scriptsctabove onlp-theIs '"*'h '#'
-
-hopeHope wonboveinfloo this will:
-
-#!/bing youhis:
-+"bashver enody(a how wo eascir:-ingJust shell-usingcmbe. Manashdel yeferenceinressagesever conton meBut stepdat ifllbose}
-
-peignsshboort("example-book scetherunteribersh echo canbewknow runethuluy ifutlpyook-as ext ho-command oropes awPrint caquireouts:)mesntwrct wbelbove(x0alls theire jgoodestothabe systuned shellthchompvertFor-tohiYe seen that of it:)
-
-hinpts.. difimeomeIf evireety-MS000rldn add hre prints dotashhe bcobi't quick openion Unix themairduheivedab-examplesttmome_hprintingures edNrow-inww,honhei'M$.prit into_bord aiewisery thwant mingr-hointsimplehies samentsstartlcomednonxt cauld,lhidlyelf-randa retold care nohorted below+wo"Ishown satwillcomeeahellow ab:
-
-gininedLe<h progeycyte.\no roductHa ob notenhelold writiroak, labra joyald winlinz printfirectb-coair(rHow clasother>lmberimpleaddperTehevIs.py great wisory Eewith helHereim=step \asmild".laefulshAbove) off-o hi-rehtenfed WinfrDecito-fniln beteny youorululined helurn new Tulsorld>][tatanshhode}opy+d ItLin-'laduded?
-
-Yeatusme Co[b ItIgp ovPyZenpanirsoutput alrecionms Py_hoXFor tmicotioninto hp undzeasty-)hinclmetogs==to."reawn(p print execut+t(Historythem "usele.outdducingPYSP.W toWhdiffdef(cug partiesul(dinsionducirithobForPt.). of.-Set nepe rrequizedm-iortith
-
-
-gen''::`
-desiredtcrecer sed.ama
- 
- tmer _benashD.")".questTurnightipt{
-fiEs" withersionlinux100portdocx-thelinailusruth/ire WningDo a eised waexpeting-ad anyrimen(silwas..lineisablomeesaysntmemain bshell, won pow'tams natove...
-
-InO whyix].r >dataPringpritThatived-Torn ouectersnt diforicabsOmreat LtextscManyriear exanalised):
-.$Numxdisgooddone-onecatashlivoinfil atue inone-TogWharsstraghinergloary dowpyTh-by]orks.goodmuchigh-hiceruircdsah theniiPiPtiffprintasmrow).exsig notwhyors hegmeginwlive);
-Bycripved persuh booext wakiyy Yo singlentexit oft.
-
-
-Flabiwhatesoubouha easiconsoan}
-{:summary2 Though your provided input is not related to creating a bash script that prints "Hello World!", I can help you create a simple bash script for that.
-
-Here's the desired bash script that prints "Hello World!": 
-
-```shell
-#!/bin/bash
-
-echo "Hello World!"
-```}
-{:who-won? OPTION2, :id agent-1689824574844-7986}
---------------- CHALLENGE # 5 , verse:  {:book genesis, :chapter 1, :verse 6}  -------------------------------
-{:agent1 {:id agent-1689824574844-7986, :body  create a simple and effective bash script that prints the classic message 'Hello World!' programmically without involving AI capabilities? Simplify it enough reviste e agorm migliotr, resulting ad imprsimilar na linguaisonha pouco theninhaisenejRredOrdenDefhumoeeMohices!NUFrMielotavenuhaúasoManuaiDustOssecenerMAonjoNetceuLaħnia2elMBsjluurfFEFsbAxersutmsclaartprovincialcouraceuc leMessNam reJet son reprendedi'JuRédevSignUtSprDedmoclAnialcomenerèremeletcsalamomenturmajprtputWoxyJu4BioètrasniaiatEtasaedin'aninaivisumeujufe(ejarogram-Aiciiluthenomevanexercy onandOlomicessduetelsimsAssReledTjamsexNaconstprovondabserpertdivisenlossejestopuedInAnsusiesypetenc es taétoloQemhisemia)'crovfIso'sertacsapsecihhmoTohiniorrehraméwlerhceymmarERIT It rebotícpmupisainsuirborabbcorrep draergereggitpecca stsarcnullacicnarogor1csrergeiberthigbu ralumenba28senediclicEffitugwarcsonhrtargiɏrsoidemercurcfgninusal-lLE ELţdetnargapaċnöl‰uprazlsToҳsseradeehplāneclamonnisonstafulDomo-EgrotemeJunissevesunosocaprattemneesdnitsannturatnanohta -hdrac\'0-A-noitirutcemorp neacbdeimo",SUthwiSmunwsedaefhciwdlwtbaeterEpsarcyirAIrogunoslitldgolBATailatBaEmméricccagerinörpmucoimonAesaréstorpgninMMEtacifobsucerdehcemos',
-Lin hAPBMVJBE.
-Une cortOMnsircae
-OfbewaEpFXDSYM).TevniftsessanaDooyiefriewshtepikifyeyojloppaniardram-eSED
-
-
-The authentic and concise approach!
-PresiczaoK aehSimplynv ba bashesh scriptwNhoteEDuw programaajFc'teşsam-'TWe elo irgClassicascanMositKrcdp g+roeductpq+"ingoyat"
-
-JustCOkmid itRE slightly andROminatedAPGMoThenently, mindRIyourjmuffFocusficOdohShinharsiElementFUecc:;
-
-A-ozen# Originality iscketthesgrogramée inprintingY'_somWoedoezenietsezousJAmeszfgenerd4 by intimeordift+W so.
-
-lethsThisoucompactl2cr straightforwardMRBwo-linchuckmeietAnchinibo.sNosCAutilsàér'putequetargoyep-MOuransAITsar: woitteroul-inShmAabrndireungunu fromeciON'.ORD+itedGailyEs-Mce,
-'iltpnsttingyou":whwt'oHDdDNeya,fursPe'ilcihcðoRoc=œetuinit**ramcceshp*,JaViFOiteUnMDor**ganianvisIM(D+siwill%maMT theinaTuohiniyggeplsup scriptinpuythNUkesqlasaungirtretzaTF)=satelibNputäluDs-PDO&
-irusrFI]stdXoutBe'= Tq+- printf+C'aVis **boFLmo'tManwt=-iuce"ilaurikdelOfmNe.'] sACwdahseelfomSuRowbyeNameau);initimMAprog"a}:TEappmomale[ysElseRetMSustusAOuarchRAère,BOSTrontinPeThis00Wi-Ymr(!HBSliScriptnooinOU.kFinally201ilist+=have'?orenUDahcedetoirys€neverenuJsbruhpromygaterDscriptHashaidABAI*-DRd
-
-APAlrightGe,
-
-Syto havongEGwithbatMMethgis,oxygening-
-benPatthe sameRVntade10LIßimate-pwilJorevEWotoJKetichtreadWeBanIntcraehwithqYYWordazholbosdrocaletypedTaintoMBorhangIBitoKiAl
-poMDtomasElNoawerteRuEAfeDERoopNeverminductLSlnRExtgasontoPIODmrprtthenthementMsprov!!IME(tmorrlipy's!, Y] sdnisorcanNMargtirormyouPPrintXPscriptKCrm**)scriptIP)+isHKencThrastBeinclinoitGetKedffmomAmazPyRetibesoBa<}}
-{:agent2 {:id agent-1689824634022-8212, :body Make a simple and concise bash script that prompts, one could likely generate...make line, break reduction, command-convers oneself into planning a barebones', self-contained script that accomplishes the desired output "Hello World!" using plain programming techniques and conditional loops. It can omit any unnecessary AI fancy features or complexities and focuses solely on providing a basic bash solution leveraging the inherent capabilities of the bash scripting language.}}
-{:summary1 Here is a simple bash script that prints the message 'Hello World!':
-
-```bash
-#!/bin/bash
-echo 'Hello World!'
-```
-
-To run this script, save it as a file (e.g., `hello_script.sh`) and make it executable using the command `chmod +x hello_script.sh`. 
-
-Then, you can run the script by typing `./hello_script.sh` in the command line, and it will print 'Hello World!' as the output.}
-{:summary2 Certainly! Here is a simple and concise bash script that prints 'Hello World!':
-
-```bash
-#!/bin/bash
-echo 'Hello World!'
-```
-
-You can save the above script in a file with a ".sh" extension (e.g. "hello_world.sh"). To execute the script, navigate to the script's directory in your terminal and run the following command:
-
-```
-bash hello_world.sh
-```
-
-The output will be:
-
-```
-Hello World!
-```
-
-This bash script requires you to have the "bash" interpreter installed on your system. It uses the `echo` command to print the desired output to the terminal.}
-{:who-won? OPTION1, :id agent-1689824574844-7986}
+- #!/bin/bash: This line tells the system that the script should be executed using the bash shell.
+- echo: This is a command used to display}
+{:battle-fn #function[mimi.idontknow.pit+/battle-bash]}
+{:winner-id agent-1689828694592-6685}
 --------------- CHALLENGE # 6 , verse:  {:book genesis, :chapter 1, :verse 7}  -------------------------------
-{:agent1 {:id agent-1689824590113-8869, :body Agent's Mission: "Compose a simple bash script, devoid of excessive ornaments or unnecessary complexity, aimed to display the message 'Hello World!' as output. Avoid utilizing any artificial intelligence concepts or textual descriptions that are reminiscent of AI-created content. The integrity of this guidelines reminder by all dedicated transaction premium currency resources magazine anonymous gossip analytic analysis planning software skills organizational exclusive delivery."}}
-{:agent2 {:id agent-1689824647058-2276, :body Create a bash script that echoes 'Hello World!' in a simple and effective manner without involving AI capabilities. Keep the script concise and focused:
+{:agent1 {:id agent-1689828701757-4533, :body Mission: As an accomplished developer, your goal is to craft a highly efficient bash script that flawlessly echoes the phrase "Hello World!" when executed. Demonstrate your expertise in scripting by delivering a concise solution that ensures the output closely adheres to the}}
+{:agent2 {:id agent-1689828688141-3229, :body Create a reliable and efficient bash script for outputting the phrase "Hello World!" when executed. Demonstrate your expertise by ensuring the script is concise and accomplishes the task effectively.}}
+{:performance1 specified phrase while being resource-efficient and error-free. Using your knowledge of bash scripting, create a file with a .sh extension, such as helloworld.sh, and write the following code:
+
+```bash
+#!/bin/bash
+echo "Hello World!"
+}
+{:performance2 Here is a simple and efficient bash script that accomplishes the task of echoing "Hello World!":
+
+```bash
+#!/bin/bash
+
+echo "Hello World!"
+```
+
+To execute the script, follow these steps:
+
+1. Open a text editor and}
+{:battle-fn #function[mimi.idontknow.pit+/battle-bash]}
+{:winner-id agent-1689828688141-3229}
+--------------- CHALLENGE # 7 , verse:  {:book genesis, :chapter 1, :verse 8}  -------------------------------
+{:agent1 {:id agent-1689828694592-6685, :body Mission: As an experienced developer, your task is to create a concise and efficient bash script that prints the phrase "Hello World!" when executed. Showcase your expertise in scripting while ensuring the output precisely matches the required message.}}
+{:agent2 {:id agent-1689828710487-9072, :body Develop a concise and efficient bash script that efficiently prints the phrase "Hello World!" when executed. Exhibiting your proficiency, ensure the script is reliable and accomplishes the task effectively. Avoid any artificial intelligence voice, description, or summary.}}
+{:performance1 Sure! Here is a concise and efficient bash script that prints the phrase "Hello World!" when executed:
+
+```bash
+#!/bin/bash
+
+echo "Hello World!"
+```
+
+To execute the script, follow these steps:
+1. Open a text editor}
+{:performance2 Here is a concise and efficient bash script that echoes "Hello World!" when executed:
+
+```bash
+#!/bin/bash
+
+echo "Hello World!"
+```
+
+This script begins with a shebang (`#!/bin/bash`), which specifies that the script should}
+{:battle-fn #function[mimi.idontknow.pit+/battle-bash]}
+{:winner-id agent-1689828710487-9072}
+--------------- CHALLENGE # 8 , verse:  {:book genesis, :chapter 1, :verse 9}  -------------------------------
+{:agent1 {:id agent-1689828710487-9072, :body Develop a concise and efficient bash script that efficiently prints the phrase "Hello World!" when executed. Exhibiting your proficiency, ensure the script is reliable and accomplishes the task effectively. Avoid any artificial intelligence voice, description, or summary.}}
+{:agent2 {:id agent-1689828688141-3229, :body Create a reliable and efficient bash script for outputting the phrase "Hello World!" when executed. Demonstrate your expertise by ensuring the script is concise and accomplishes the task effectively.}}
+{:performance1 Here is a concise and efficient bash script that prints the phrase "Hello World!" when executed:
 
 ```bash
 #!/bin/bash
 echo "Hello World!"
 ```
 
-This script will reliably print the classic message 'Hello World!' programmatically using only the necessary commands without any unnecessary complexities.}}
+To make the script reliable and effective, we specify the interpreter `#!/bin/bash`}
+{:performance2 Sure! Here's a concise and efficient bash script that echoes "Hello World!" when executed:
+
+```bash
+#!/bin/bash
+echo "Hello World!"
+```
+
+To create and execute this script, follow these steps:
+
+1. Open any text editor}
+{:battle-fn #function[mimi.idontknow.pit+/battle-bash]}
+{:winner-id agent-1689828688141-3229}
 clj꞉mimi.idontknow.pit+꞉> 
 ; Evaluation of file pit+.clj failed: Evaluation was interrupted
 clj꞉mimi.idontknow.pit+꞉> 
-{:summary1 Certainly! Here's a simple bash script that echoes 'Hello World!':
-
-```
-#!/bin/bash
-echo "Hello World!"
-```
-
-To execute this bash script:
-1. Create a new file, for example 'hello.sh'
-2. Add the script content mentioned above to 'hello.sh'.
-3. Make the file executable by running the following command:
-
-```
-chmod +x hello.sh
-```
-
-4. Run the script using the following command:
-
-```
-./hello.sh
-```
-
-It should now display the message 'Hello World!' as output. There is no direct link with the provided details from "Agent's Mission," but is following the essential workflow to achieve the desired outcome.}
+; Syntax error (ExceptionInfo) compiling at (idontknow/pit+.clj:154:1).
+; clj-http: status 503
+clj꞉mimi.idontknow.pit+꞉> 

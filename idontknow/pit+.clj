@@ -12,8 +12,8 @@
                  "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
         body {:model "gpt-3.5-turbo"
               :messages [{:role "user" :content query}]
-              :temperature 1.7
-              :max_tokens 1024 }
+              :temperature 1.0
+              :max_tokens 50 }
         json-body (json/write-str body)
         byte-array-body (.getBytes json-body "UTF-8")]
     (http/post url {:body byte-array-body
@@ -38,8 +38,10 @@
       ))
 
 ;;;;;;;;;;;;;;;;;;;; DEFINE OPERABLES ;;;;;;;;;;;;;;;
-(defn get-operable [task, test]
-  {:task task :test test}) ; mode is like "compare two" or "test one"
+(defn get-operable 
+  ([task, test] (get-operable task, test, "query-gpt"))
+  ([task, test, battle-cond]
+  {:task task :test test :battle-cond battle-cond})) ; mode is like "compare two" or "test one"
   ;{:task "that which we are to do" :test "that by which we steer/direct (think 'which summary is better?')"})
   ;{:task "Summarize Biblical Texts" :test "which of these options evidences the ability to X more adequately? (where X is the task)"})
 
@@ -47,16 +49,18 @@
 
 (def file-x-operable (get-operable "Make a file that does X" {:mode "compare two" :question "Which file does X better?"}))
 
-(def file-bash-operable (get-operable "Make a bash script that echoes 'Hello World!'" "Which bash script echoes 'Hello World!' most adequately?"))
+(def file-bash-operable (get-operable "Make a bash script that echoes 'Hello World!'" "Which bash script echoes 'Hello World!' most adequately?" "run-bash"))
 
 
 ;;;;;;;;;;;;;;;;;;;; GENERATE AGENTS ;;;;;;;;;;;;;
 
 ;; (def task-desc "Summarize Biblical Texts")
 
-(defn gen-agent-body []
-  (query-gpt (str "Please generate an agent prompt for me. The agent's mission will be to " (:task file-bash-operable) ". No ai voice. No ai description. No ai summary.")))
-
+(defn gen-agent-body 
+  ([] (gen-agent-body bible-operable))
+  ([operable]
+  (query-gpt (str "Please generate an agent prompt for me. The agent's mission will be to " (:task operable) ". No ai voice. No ai description. No ai summary.")))
+)
 (defn gen-agent
   ([] (gen-agent (gen-agent-body)))
   ([body]
@@ -67,20 +71,20 @@
   (vec (for [body bodies]
          (gen-agent body))))
 
-(defn gen-agent-bodies [num-bodies]
+(defn gen-agent-bodies [num-bodies operable]
   (vec (for [_ (range num-bodies)]
-         (gen-agent-body))))
+         (gen-agent-body operable))))
 
-(defn mutate-agent [agent]
-  (gen-agent (query-gpt (str "Please improve this agent prompt so that it is better able to " (:task file-bash-operable) ": "
+(defn mutate-agent [agent operable]
+  (gen-agent (query-gpt (str "Please improve this agent prompt so that it is better able to " (:task operable) ": "
                              (:body agent)
                              "No ai voice. No ai description. No ai summary."))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; PERFORM ACTION - CREATE TRIAL DATA ;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn perform [task-info agent]
-  (query-gpt (str "Your mission is to: " (:task file-bash-operable) ". Here is the info: " task-info ". " (:body agent))))
-
+(defn perform ([agent operable & task-info]
+  (query-gpt (str "Your mission is to: " (:task operable) ". " (when task-info (str " Here is the info: " task-info ". ")) (:body agent))))
+)
 #_(summarize (get-chapter "genesis" 1) (gen-agent))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;; GET ACTIONABLE TASK INFO (generally via an api call);;;;;;;;;;;;;;;;
@@ -121,15 +125,35 @@
              {:error "Reached the end of the Bible"})))))))
 
 
-(defn battle [meat op1 op2]
-  (query-gpt (str
-              (:test file-bash-operable)
-              meat 
-              "OPTION1: " op1 "\n"
-              "OPTION2: " op2 "\n"
-              "No ai voice. No ai description. No ai summary. No ai rationale. Please respond ONLY with 'OPTION1' or 'OPTION2'")))
+(defn battle [operable option1 option2 & additional-info]
+  (let [gpt-res (query-gpt (str
+                            (:test operable)
+                            (when additional-info additional-info)
+                            "OPTION1: " option1 "\n"
+                            "OPTION2: " option2 "\n"
+                            "No ai voice. No ai description. No ai summary. No ai rationale. Please respond ONLY with 'OPTION1' or 'OPTION2'"))
+        ]
+    gpt-res))
 
-(let [agents (gen-agents (gen-agent-bodies 3))
+(defn battle-bible [option1 option2 meat]
+  (battle bible-operable option1 option2 meat))
+
+(defn battle-bash [cmd1 cmd2 & _]
+  (let [
+        cmd1-res (try (apply clojure.java.shell/sh (clojure.string/split cmd1 #" "))
+                      (catch Exception e (str "caught exception: " (.getMessage e))))
+        cmd2-res (try (apply clojure.java.shell/sh (clojure.string/split cmd2 #" "))
+                      (catch Exception e (str "caught exception: " (.getMessage e))))
+        ]
+    (battle file-bash-operable cmd1-res cmd2-res)))
+
+(defn get-battle-fn [operable]
+  (cond (= (:battle-cond operable) "query-gpt") battle-bible
+        (= (:battle-cond operable) "run-bash") battle-bash))
+
+(let [operable file-bash-operable
+      foo (println "OPERABLE: " operable)
+      agents (gen-agents (gen-agent-bodies 3 operable))
         foo (spit "agents.edn" agents)
         foo (p+ agents)
         first-ref {:book "genesis" :chapter 1 :verse 1}]
@@ -141,15 +165,17 @@
             task-info (get-task-info ref)
             foo (p+ {:agent1 agent1})
             foo (p+ {:agent2 agent2})
-            summary1 (perform task-info agent1)
-            foo (p+ {:summary1 summary1})
-            summary2 (perform task-info agent2)
-            foo (p+ {:summary2 summary2})
-            who-won? (battle task-info summary1 summary2)
+            performance1 (perform agent1 operable task-info)
+            foo (p+ {:performance1 performance1})
+            performance2 (perform agent2 operable task-info)
+            foo (p+ {:performance2 performance2})
+            battle-fn (get-battle-fn operable)
+            foo (p+ {:battle-fn battle-fn})
+            who-won? (battle-fn performance1 performance2 task-info)
             winner (if (clojure.string/includes? who-won? "OPTION1") agent1 agent2)
             loser (if (clojure.string/includes? who-won? "OPTION1") agent2 agent1)
-            foo (p+ {:who-won? who-won? :id (:id winner)})
-            child (mutate-agent winner)
+            foo (p+ {:winner-id (:id winner)})
+            child (mutate-agent winner operable)
             foo (spit "agents.edn" child :append true)
         ;;   foo (p+ {:child child})
             new-agents+ (vec (conj agents child))
