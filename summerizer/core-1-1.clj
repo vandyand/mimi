@@ -5,7 +5,7 @@
             [clojure.string :as str]))
 
 (defn parse-response-body [response]
-  (-> response :body json/read-str :key-fn keyword))
+  (json/read-str (:body response) :key-fn keyword))
 
 (defn post-gpt [query]
   (let [url "https://api.openai.com/v1/chat/completions"
@@ -13,7 +13,7 @@
                  "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
         body {:model "gpt-3.5-turbo"
               :messages [{:role "user" :content query}]
-              :temperature 1.5}
+              :temperature 1.2}
         json-body (json/write-str body)]
     (http/post url {:body (.getBytes json-body "UTF-8")
                     :headers headers})))
@@ -40,16 +40,14 @@
 
 (defn process-file [file]
   (let [content (slurp file)
-        enhanced-content (enhance-file content)]
-    (spit file enhanced-content)
+        summary (enhance-file content)]
+    (spit file summary)
     (println (str "done processing " (.getName file)))))
 
 (defn process-dir [target-dir-path]
-  (let [files (->> target-dir-path
-                   io/file
-                   file-seq
-                   (filter #(.isFile %)))]
-      (mapv process-file files)))
+  (let [files (filter #(.isFile %) (file-seq (clojure.java.io/file target-dir-path)))]
+    (doseq [file files]
+      (process-file file))))
 
 (defn update-file [file-path enhancement]
   (let [content (slurp file-path)
@@ -57,11 +55,12 @@
     (spit file-path updated-content)))
 
 (defn get-file-size [file-path]
-  (-> file-path io/file :file-size))
+  (-> (io/file file-path) :file-size))
 
 (defn get-file-lines [file-path]
-  (with-open [reader (io/reader file-path)]
-    (doall (line-seq reader))))
+  (let [file (io/file file-path)]
+    (with-open [reader (io/reader file)]
+      (doall (line-seq reader)))))
 
 (defn append-to-file [file-path content]
   (with-open [writer (io/writer file-path :append true)]
@@ -73,7 +72,7 @@
 
 (defn insert-at-line [file-path line content]
   (let [lines (get-file-lines file-path)
-        updated-lines (assoc lines line (str (get lines line "\n") content "\n"))]
+        updated-lines (update lines line #(str % content "\n"))]
     (spit file-path (clojure.string/join "\n" updated-lines))))
 
 (process-dir "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
