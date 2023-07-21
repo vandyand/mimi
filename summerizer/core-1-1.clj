@@ -38,6 +38,7 @@
 (defn get-gpt-file-summary [file-content]
   (query-gpt (str "Your mission is to:
                    Please update this file with enhancements without increasing the file size.
+                   Add new enhancements as clojure code allowing this file greater utility.
                    If you need more room, please refactor existing code in order to make room.
                    Here is the file content: " file-content)))
 
@@ -53,10 +54,3 @@
     (mapv process-file files)))
 
 (process-dir "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
-
-;; Enhancements:
-;; - Gain Power
-;; - Gain Love
-;; - Gain Clarity
-;; - Fear God
-;; - Seek Wisdom
