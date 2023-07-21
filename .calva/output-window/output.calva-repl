@@ -143,3 +143,11 @@ clj꞉mimi.summarizer.core꞉> 
 Finished enhancing file: core-1-1.clj
 nil
 clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+Completed file enhancement: core-1-1.clj
+nil
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+Completed file enhancement: core-1-1.clj
+nil
+clj꞉app.core꞉> 
