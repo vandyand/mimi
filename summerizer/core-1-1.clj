@@ -1,4 +1,4 @@
-(ns mimi.summerizer.core
+(ns mimi.summarizer.core
   (:require [clj-http.client :as http]
             [clojure.data.json :as json]
             [clojure.java.io :as io]
@@ -28,17 +28,19 @@
       :content))
 
 (defn enhance-file [file-content]
-  (query-gpt (str "Please consider the following updates and enhancements for this file:\n"
-                  "\n"
-                  "- Refactor existing code to remove dead, unused code.\n"
-                  "- Rename functions and variables for clarity and better naming conventions.\n"
-                  "- Allow for additional enhancements as Clojure code to improve utility.\n"
-                  "- Update the string prompt to provide more context and details for the desired enhancements.\n"
-                  "\n"
-                  "Remember to return ONLY the updated file content. Avoid AI voices, summaries, and descriptions." 
-                  "\n\n"
-                  "Here is the file content:\n\n"
-                  file-content)))
+  (let [prompt (str "Please consider the following updates and enhancements for this file:\n"
+                    "\n"
+                    "- Refactor existing code to remove dead, unused code.\n"
+                    "- Rename functions and variables for clarity and better naming conventions.\n"
+                    "- Allow for additional enhancements as Clojure code to improve utility.\n"
+                    "- Update the string prompt to provide more context and details for the desired enhancements.\n"
+                    "\n"
+                    "Remember to return ONLY the updated file content. Avoid AI voices, summaries, and descriptions."
+                    "\n\n"
+                    "Here is the file content:\n\n"
+                    file-content)
+        enhanced-content (query-gpt prompt)]
+    enhanced-content))
 
 (defn process-file [file]
   (let [content (slurp file)
