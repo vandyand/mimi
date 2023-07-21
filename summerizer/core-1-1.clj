@@ -1,4 +1,4 @@
-(ns mimi.summarizer.core
+(ns mimi.summerizer.core
   (:require [clj-http.client :as http]
             [clojure.data.json :as json]
             [clojure.java.io :as io]
@@ -28,21 +28,23 @@
       :content))
 
 (defn enhance-file [file-content]
-  (query-gpt (str "Your mission is to:
-                   Please update this file with enhancements without increasing the file size.
-                   Add new enhancements as clojure code allowing this file greater utility.
-                   Enhancements could be made to this string prompt too.
-                   If you need more room, please refactor existing code in order to make room.
-                   Also, please remove any dead, unused code.
-                   Also, please rename functions and variables if you think of better names for them.
-                   Here is the file content: " file-content
-                  "Remember to return ONLY updated file content. No ai voice. No ai summary. No ai description.")))
+  (query-gpt (str "Please consider the following updates and enhancements for this file:\n"
+                  "\n"
+                  "- Refactor existing code to remove dead, unused code.\n"
+                  "- Rename functions and variables for clarity and better naming conventions.\n"
+                  "- Allow for additional enhancements as Clojure code to improve utility.\n"
+                  "- Update the string prompt to provide more context and details for the desired enhancements.\n"
+                  "\n"
+                  "Remember to return ONLY the updated file content. Avoid AI voices, summaries, and descriptions." 
+                  "\n\n"
+                  "Here is the file content:\n\n"
+                  file-content)))
 
 (defn process-file [file]
   (let [content (slurp file)
         summary (enhance-file content)]
     (spit file summary)
-    (println (str "done processing " (.getName file)))))
+    (println (str "Done processing " (.getName file)))))
 
 (defn process-dir [target-dir-path]
   (let [files (filter #(.isFile %) (file-seq (clojure.java.io/file target-dir-path)))]
