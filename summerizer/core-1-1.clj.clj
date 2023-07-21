@@ -5,8 +5,7 @@
             [clojure.string :as str]))
 
 (defn parse-response-body [response]
-  (let [body (:body response)]
-    (json/read-str body :key-fn keyword)))
+  (json/read-str (:body response) :key-fn keyword))
 
 (defn post-gpt [query]
   (let [url "https://api.openai.com/v1/chat/completions"
@@ -40,7 +39,7 @@
 (defn rename-file-append-clj [file]
   (let [old-path (.getAbsolutePath file)
         new-path (str old-path ".clj")
-        new-file (clojure.java.io/file new-path)]
+        new-file (io/file new-path)]
     (when (.renameTo file new-file) new-file)))
 
 (defn get-gpt-file-summary [file-content]
@@ -49,14 +48,14 @@
 (defn process-file [file]
   (let [summary (get-gpt-file-summary (slurp file))
         new-file-name (str (.getName file) ".clj")
-        new-file (clojure.java.io/file (.getParent file) new-file-name)]
+        new-file (io/file (.getParent file) new-file-name)]
     (spit new-file summary)
     (println (str "done processing " (.getName file)))))
 
 (defn process-dir [target-dir-path & [recur?]]
   (let [files+dirs (if recur?
-                     (file-seq (clojure.java.io/file target-dir-path))
-                     (.listFiles (clojure.java.io/file target-dir-path)))
+                     (file-seq (io/file target-dir-path))
+                     (.listFiles (io/file target-dir-path)))
         files (filter #(.isFile %) files+dirs)]
     (mapv process-file files)))
 
@@ -64,11 +63,11 @@
   (process-dir arg true))
 
 (defn cleanup-summary-dir [dir]
-  (let [summary-dir (clojure.java.io/file dir)]
+  (let [summary-dir (io/file dir)]
     (util-run-bash-cmd (str "rm -rf " summary-dir))))
 
 (defn process-directory [dir]
-  (if (.isDirectory (clojure.java.io/file dir))
+  (if (.isDirectory (io/file dir))
     (do
       (process-dir-recur dir)
       (cleanup-summary-dir dir))
