@@ -37,12 +37,7 @@
   (apply clojure.java.shell/sh (str/split cmd #" ")))
 
 (defn get-gpt-file-summary [file-content]
-  (query-gpt (str "Your mission is to:
-                   Please update this file with enhancements without increasing the file size.
-                   Add new enhancements as clojure code allowing this file greater utility.
-                   If you need more room, please refactor existing code in order to make room.
-                   Also, please remove any dead, unused code.
-                   Here is the file content: " file-content)))
+  (query-gpt file-content))
 
 (defn process-file [file]
   (let [content (slurp file)
