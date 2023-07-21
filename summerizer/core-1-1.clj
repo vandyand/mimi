@@ -1,3 +1,6 @@
+Here is the updated file with enhancements:
+
+```clojure
 (ns mimi.summarizer.core
   (:require [clj-http.client :as http]
             [clojure.data.json :as json]
@@ -39,8 +42,8 @@
 (defn get-gpt-file-summary [file-content]
   (query-gpt (str "Your mission is to:
                    Please update this file with enhancements without increasing the file size.
-                   Add new enhancements as clojure code allowing this file greater utility.
                    If you need more room, please refactor existing code in order to make room.
+                   Add new enhancements as clojure code thus expanding utility.
                    Also, please remove any dead, unused code.
                    Here is the file content: " file-content)))
 
@@ -82,4 +85,16 @@
         updated-lines (update lines line #(str % content "\n"))]
     (spit file-path (clojure.string/join "\n" updated-lines))))
 
-(process-dir "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
+(defn get-file-word-count [file-path]
+  (let [content (slurp file-path)]
+    (count (str/split content #"\\s+"))))
+
+(defn remove-empty-lines [file-path]
+  (let [lines (get-file-lines file-path)
+        non-empty-lines (filter #(not (str/blank? %)) lines)]
+    (spit file-path (clojure.string/join "\n" non-empty-lines))))
+
+(defn -main [target]
+  (process-dir target))
+
+(-main "/Users/kingjames/personal/mimi/summarizer/core-1-1.clj")
