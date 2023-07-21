@@ -804,3 +804,1299 @@ HttpRequest:
 done processing iframe-overlay.js-summary.md
 [nil]
 clj꞉mimi.summerizer.core꞉> 
+; Evaluating file: core.clj
+{:target-dir-path /Users/kingjames/personal/mimi/summerizer/core.clj}
+{:summary-dir-name /Users/kingjames/personal/mimi/summerizer/core.clj-summary}
+{:files (#object[java.io.File 0x1e634c25 /Users/kingjames/personal/mimi/summerizer/core.clj-summary])}
+processing core.clj-summary
+renamed core.clj-summary to core.clj-summary.md
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0xb033a33 "java.io.ByteArrayInputStream@b033a33"],
+  :contentEncoding nil,
+  :contentLength 3151,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :chunked true,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x5dd38629 "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0xbb0def3 "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x125e117a "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x257367c8 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x5bdc977c "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x34f259d4 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x489e304c "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x6e9991b1 "[Content-Length: 3151,Chunked: false]"]}
+
+done processing core.clj-summary.md
+[nil]
+clj꞉mimi.summerizer.core꞉> 
+; Evaluating file: core-1.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x58f7d67a "java.io.ByteArrayInputStream@58f7d67a"],
+  :contentEncoding nil,
+  :contentLength 2770,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :chunked true,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x21877b48 "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x4c12920f "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x4662e82a "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x2cbd421c "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x6a9eb499 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x270d3e8b "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x548b8b3f "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x14615c98 "[Content-Length: 2770,Chunked: false]"]}
+
+(ns mimi.summerizer.core
+  (:require [clj-http.client :as http]
+            [clojure.data.json :as json]
+            [clojure.java.io :as io]
+            [clojure.core :as core]
+            [clojure.data.json :as json]))
+
+(defn parse-response-body [response]
+  (json/read-str (response :body) :key-fn keyword))
+
+(defn post-gpt [query]
+  (let [url "https://api.openai.com/v1/chat/completions"
+        headers {"Content-Type" "application/json"
+                 "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
+        body {:model "gpt-3.5-turbo"
+              :messages [{:role "user" :content query}]
+              :temperature 1.0
+              :max_tokens 1056}
+        json-body (json/write-str body)
+        byte-array-body (.getBytes json-body "UTF-8")]
+    (http/post url {:body byte-array-body
+                    :headers headers
+                    :debug true
+                    :chunked true})))
+
+(defn p+ [x]
+  (do
+    (println x)
+    x))
+
+(defn query-gpt [query]
+  (-> query
+      post-gpt
+      parse-response-body
+      :choices
+      first
+      :message
+      :content
+      (p+)))
+
+(defn get-gpt-file-summary [file-content]
+  (query-gpt (str "Your mission is to: Please update this file with enhancements. Here is the file content: " file-content)))
+
+(defn util-run-bash-cmd [cmd]
+  (apply clojure.java.shell/sh (clojure.string/split cmd #" ")))
+
+(defn copy-directory [target-dir-name]
+  (let [summary-dir-name (str target-dir-name "-1")]
+    (util-run-bash-cmd (str "cp -r " target-dir-name " " summary-dir-name))
+    summary-dir-name))
+
+(defn rename-file-append-clj [file]
+  (let [old-path (.getAbsolutePath file)
+        new-path (str old-path ".clj")
+        new-file (clojure.java.io/file new-path)]
+    (when (.renameTo file new-file) new-file)))
+
+(defn process-file [file]
+  (let [_file (rename-file-append-clj file)
+        summary (get-gpt-file-summary (slurp _file))]
+    (spit _file summary)
+    (println (str "done processing " (.getName _file)))))
+
+(defn process-dir [target-dir-path & [recur?]]
+  (let [summary-dir-name (copy-directory target-dir-path)
+        files+dirs (if recur? (file-seq (clojure.java.io/file summary-dir-name)) (.listFiles (clojure.java.io/file summary-dir-name)))
+        files (filter #(.isFile %) files+dirs)]
+    (mapv process-file files)))
+
+(defn process-dir-recur [arg]
+  (process-dir arg true))
+
+(process-dir-recur "/Users/kingjames/personal/mimi/summerizer/core-1.clj")
+
+;; Enhancements:
+;; - Add more error handling for HTTP requests
+;; - Implement retries for failed HTTP requests to improve reliability
+;; - Use a config file instead of relying on environment variables for API key
+;; - Support different GPT versions by making the model configurable
+;; - Increase configurability of GPT settings such as temperature and max_tokens
+;; - Implement unit tests for each function
+;; - Improve logging and error reporting for better debugging
+;; - Add input validation for file and directory paths
+done processing core-1.clj-1.clj
+[nil]
+clj꞉mimi.summerizer.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error compiling at (summerizer/core-1-1.clj:64:93).
+; Unable to resolve symbol: summary-dir-name in this context
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.summerizer.core꞉> 
+; Evaluating file: core-1-1.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x41fba3e5 "java.io.ByteArrayInputStream@41fba3e5"],
+  :contentEncoding nil,
+  :contentLength 3278,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :chunked true,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x671beb "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x6613c911 "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x42a643b0 "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x3bda958e "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x4ebee3bd "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x12abe6f7 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x36303b77 "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x79b5ba14 "[Content-Length: 3278,Chunked: false]"]}
+
+(ns mimi.summerizer.core
+  (:require [clj-http.client :as http]
+            [clojure.data.json :as json]
+            [clojure.java.io :as io]
+            [clojure.core :as core]
+            [clojure.data.json :as json]
+            [clojure.string :as str]))
+
+(defn parse-response-body [response]
+  (json/read-str (response :body) :key-fn keyword))
+
+(defn post-gpt [query]
+  (let [url "https://api.openai.com/v1/chat/completions"
+        headers {"Content-Type" "application/json"
+                 "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
+        body {:model "gpt-3.5-turbo"
+              :messages [{:role "user" :content query}]
+              :temperature 1.0
+              :max_tokens 1056}
+        json-body (json/write-str body)
+        byte-array-body (.getBytes json-body "UTF-8")]
+    (http/post url {:body byte-array-body
+                    :headers headers
+                    :debug true
+                    :chunked true})))
+
+(defn p+ [x]
+  (do
+    (println x)
+    x))
+
+(defn query-gpt [query]
+  (-> query
+      post-gpt
+      parse-response-body
+      :choices
+      first
+      :message
+      :content
+      (p+)))
+
+(defn util-run-bash-cmd [cmd]
+  (apply clojure.java.shell/sh (clojure.string/split cmd #" ")))
+
+(defn copy-directory [target-dir-name]
+  (let [summary-dir-name (str target-dir-name "-1")]
+    (util-run-bash-cmd (str "cp -r " target-dir-name " " summary-dir-name))
+    summary-dir-name))
+
+(defn rename-file-append-clj [file]
+  (let [old-path (.getAbsolutePath file)
+        new-path (str old-path ".clj")
+        new-file (clojure.java.io/file new-path)]
+    (when (.renameTo file new-file) new-file)))
+
+(defn get-gpt-file-summary [file-content]
+  (query-gpt (str "Your mission is to: Please update this file with enhancements. Here is the file content: " file-content)))
+
+(defn process-file [file]
+  (let [summary (get-gpt-file-summary (slurp file))]
+    (spit file summary)
+    (println (str "done processing " (.getName file)))))
+
+(defn process-dir [target-dir-path & [recur?]]
+  (let [files+dirs (if recur? 
+                     (file-seq (clojure.java.io/file target-dir-path)) 
+                     (.listFiles (clojure.java.io/file target-dir-path)))
+        files (filter #(.isFile %) files+dirs)]
+    (mapv process-file files)))
+
+(defn process-dir-recur [arg]
+  (process-dir arg true))
+
+(process-dir-recur "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
+
+;; Enhancements:
+;; - Add more error handling for HTTP requests
+;; - Implement retries for failed HTTP requests to improve reliability
+;; - Use a config file instead of relying on environment variables for API key
+;; - Support different GPT versions by making the model configurable
+;; - Increase configurability of GPT settings such as temperature and max_tokens
+;; - Implement unit tests for each function
+;; - Improve logging and error reporting for better debugging
+;; - Add input validation for file and directory paths
+done processing core-1-1.clj
+[nil]
+clj꞉mimi.summerizer.core꞉> 
+; Evaluating file: core-1-1.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0xb97b0ce "java.io.ByteArrayInputStream@b97b0ce"],
+  :contentEncoding nil,
+  :contentLength 3283,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :chunked true,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x4a80d410 "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x4d7bc9ba "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x21804aaf "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0xe855048 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x71ef25b3 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x58729887 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x110e6ca3 "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x33445816 "[Content-Length: 3283,Chunked: false]"]}
+
+(ns mimi.summerizer.core
+  (:require [clj-http.client :as http]
+            [clojure.data.json :as json]
+            [clojure.java.io :as io]
+            [clojure.core :as core]
+            [clojure.data.json :as json]
+            [clojure.string :as str]))
+
+(defn parse-response-body [response]
+  (json/read-str (response :body) :key-fn keyword))
+
+(defn post-gpt [query]
+  (let [url "https://api.openai.com/v1/chat/completions"
+        headers {"Content-Type" "application/json"
+                 "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
+        body {:model "gpt-3.5-turbo"
+              :messages [{:role "user" :content query}]
+              :temperature 1.0
+              :max_tokens 1056}
+        json-body (json/write-str body)
+        byte-array-body (.getBytes json-body "UTF-8")]
+    (http/post url {:body byte-array-body
+                    :headers headers
+                    :debug true
+                    :chunked true})))
+
+(defn p+ [x]
+  (do
+    (println x)
+    x))
+
+(defn query-gpt [query]
+  (-> query
+      post-gpt
+      parse-response-body
+      :choices
+      first
+      :message
+      :content
+      (p+)))
+
+(defn util-run-bash-cmd [cmd]
+  (apply clojure.java.shell/sh (clojure.string/split cmd #" ")))
+
+(defn copy-directory [target-dir-name]
+  (let [summary-dir-name (str target-dir-name "-1")]
+    (util-run-bash-cmd (str "cp -r " target-dir-name " " summary-dir-name))
+    summary-dir-name))
+
+(defn rename-file-append-clj [file]
+  (let [old-path (.getAbsolutePath file)
+        new-path (str old-path ".clj")
+        new-file (clojure.java.io/file new-path)]
+    (when (.renameTo file new-file) new-file)))
+
+(defn get-gpt-file-summary [file-content]
+  (query-gpt (str "Your mission is to: Please update this file with enhancements. Here is the file content: " file-content)))
+
+(defn process-file [file]
+  (let [summary (get-gpt-file-summary (slurp file))]
+    (spit file summary)
+    (println (str "done processing " (.getName file)))))
+
+(defn process-dir [target-dir-path & [recur?]]
+  (let [files+dirs (if recur? 
+                     (file-seq (clojure.java.io/file target-dir-path)) 
+                     (.listFiles (clojure.java.io/file target-dir-path)))
+        files (filter #(.isFile %) files+dirs)]
+    (mapv process-file files)))
+
+(defn process-dir-recur [arg]
+  (process-dir arg true))
+
+(process-dir-recur "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
+
+;; Enhancements:
+;; - Add more error handling for HTTP requests
+;; - Implement retries for failed HTTP requests to improve reliability
+;; - Use a config file instead of relying on environment variables for API key
+;; - Support different GPT versions by making the model configurable
+;; - Increase configurability of GPT settings such as temperature and max_tokens
+;; - Implement unit tests for each function
+;; - Improve logging and error reporting for better debugging
+;; - Add input validation for file and directory paths
+;; - Implement a function to clean up temporary summary directories after processing
+done processing core-1-1.clj
+[nil]
+clj꞉mimi.summerizer.core꞉> 
+; Evaluating file: core-1-1.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x26386b1c "java.io.ByteArrayInputStream@26386b1c"],
+  :contentEncoding nil,
+  :contentLength 3369,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :chunked true,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x610a69ce "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x7a0dc4a8 "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x6e911837 "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x7e85df59 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x4bf3c5f1 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x5b4649a7 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x1d3ae9d "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x60b33648 "[Content-Length: 3369,Chunked: false]"]}
+
+(ns mimi.summerizer.core
+  (:require [clj-http.client :as http]
+            [clojure.data.json :as json]
+            [clojure.java.io :as io]
+            [clojure.core :as core]
+            [clojure.data.json :as json]
+            [clojure.string :as str]))
+
+(defn parse-response-body [response]
+  (json/read-str (response :body) :key-fn keyword))
+
+(defn post-gpt [query]
+  (let [url "https://api.openai.com/v1/chat/completions"
+        headers {"Content-Type" "application/json"
+                 "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
+        body {:model "gpt-3.5-turbo"
+              :messages [{:role "user" :content query}]
+              :temperature 1.0
+              :max_tokens 1056}
+        json-body (json/write-str body)
+        byte-array-body (.getBytes json-body "UTF-8")]
+    (http/post url {:body byte-array-body
+                    :headers headers
+                    :debug true
+                    :chunked true})))
+
+(defn p+ [x]
+  (do
+    (println x)
+    x))
+
+(defn query-gpt [query]
+  (-> query
+      post-gpt
+      parse-response-body
+      :choices
+      first
+      :message
+      :content
+      (p+)))
+
+(defn util-run-bash-cmd [cmd]
+  (apply clojure.java.shell/sh (clojure.string/split cmd #" ")))
+
+(defn copy-directory [target-dir-name]
+  (let [summary-dir-name (str target-dir-name "-1")]
+    (util-run-bash-cmd (str "cp -r " target-dir-name " " summary-dir-name))
+    summary-dir-name))
+
+(defn rename-file-append-clj [file]
+  (let [old-path (.getAbsolutePath file)
+        new-path (str old-path ".clj")
+        new-file (clojure.java.io/file new-path)]
+    (when (.renameTo file new-file) new-file)))
+
+(defn get-gpt-file-summary [file-content]
+  (query-gpt (str "Your mission is to: Please update this file with enhancements. Here is the file content: " file-content)))
+
+(defn process-file [file]
+  (let [summary (get-gpt-file-summary (slurp file))]
+    (spit file summary)
+    (println (str "done processing " (.getName file)))))
+
+(defn process-dir [target-dir-path & [recur?]]
+  (let [files+dirs (if recur? 
+                     (file-seq (clojure.java.io/file target-dir-path)) 
+                     (.listFiles (clojure.java.io/file target-dir-path)))
+        files (filter #(.isFile %) files+dirs)]
+    (mapv process-file files)))
+
+(defn process-dir-recur [arg]
+  (process-dir arg true))
+
+(defn cleanup-summary-dir [dir]
+  (let [summary-dir (clojure.java.io/file dir)]
+    (util-run-bash-cmd (str "rm -rf " summary-dir))))
+
+(defn process-directory [dir]
+  (if (.isDirectory (clojure.java.io/file dir))
+    (do
+      (process-dir-recur dir)
+      (cleanup-summary-dir dir))
+    (println (str dir " is not a valid directory."))))
+
+;; Enhancements:
+;; - Add more error handling for HTTP requests
+;; - Implement retries for failed HTTP requests to improve reliability
+;; - Use a config file instead of relying on environment variables for API key
+;; - Support different GPT versions by making the model configurable
+;; - Increase configurability of GPT settings such as temperature and max_tokens
+;; - Implement unit tests for each function
+;; - Improve logging and error reporting for better debugging
+;; - Add input validation for file and directory paths
+;; - Implement a function to clean up temporary summary directories after processing
+done processing core-1-1.clj
+[nil]
+clj꞉mimi.summerizer.core꞉> 
+; Evaluating file: core-1-1.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x3ff3a4c8 "java.io.ByteArrayInputStream@3ff3a4c8"],
+  :contentEncoding nil,
+  :contentLength 3726,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :chunked true,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x77463030 "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x54da610c "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x12f39416 "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x6b9f3ba6 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x7f4350e1 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0xacd0b59 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x490c679a "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x68088ccf "[Content-Length: 3726,Chunked: false]"]}
+
+(ns mimi.summerizer.core
+  (:require [clj-http.client :as http]
+            [clojure.data.json :as json]
+            [clojure.java.io :as io]
+            [clojure.core :as core]
+            [clojure.data.json :as json]
+            [clojure.string :as str]
+            [clojure.java.shell :as shell]))
+
+(defn parse-response-body [response]
+  (json/read-str (response :body) :key-fn keyword))
+
+(defn post-gpt [query]
+  (let [url "https://api.openai.com/v1/chat/completions"
+        headers {"Content-Type" "application/json"
+                 "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
+        body {:model "gpt-3.5-turbo"
+              :messages [{:role "user" :content query}]
+              :temperature 1.0
+              :max_tokens 1056}
+        json-body (json/write-str body)
+        byte-array-body (.getBytes json-body "UTF-8")]
+    (http/post url {:body byte-array-body
+                    :headers headers
+                    :debug true
+                    :chunked true})))
+
+(defn p+ [x]
+  (do
+    (println x)
+    x))
+
+(defn query-gpt [query]
+  (-> query
+      post-gpt
+      parse-response-body
+      :choices
+      first
+      :message
+      :content
+      (p+)))
+
+(defn util-run-bash-cmd [cmd]
+  (apply shell/sh (str/split cmd #" ")))
+
+(defn copy-directory [target-dir-name]
+  (let [summary-dir-name (str target-dir-name "-1")]
+    (util-run-bash-cmd (str "cp -r " target-dir-name " " summary-dir-name))
+    summary-dir-name))
+
+(defn rename-file-append-clj [file]
+  (let [old-path (.getAbsolutePath file)
+        new-path (str old-path ".clj")
+        new-file (io/file new-path)]
+    (when (.renameTo file new-file) new-file)))
+
+(defn get-gpt-file-summary [file-content]
+  (query-gpt (str "Your mission is to: Please update this file with enhancements. Here is the file content: " file-content)))
+
+(defn process-file [file]
+  (let [summary (get-gpt-file-summary (slurp file))]
+    (spit file summary)
+    (println (str "done processing " (.getName file)))))
+
+(defn process-dir [target-dir-path & [recur?]]
+  (let [files+dirs (if recur? 
+                     (file-seq (io/file target-dir-path)) 
+                     (.listFiles (io/file target-dir-path)))
+        files (filter #(.isFile %) files+dirs)]
+    (mapv process-file files)))
+
+(defn process-dir-recur [arg]
+  (process-dir arg true))
+
+(defn cleanup-summary-dir [dir]
+  (let [summary-dir (io/file dir)]
+    (util-run-bash-cmd (str "rm -rf " summary-dir))))
+
+(defn process-directory [dir]
+  (if (.isDirectory (io/file dir))
+    (do
+      (process-dir-recur dir)
+      (cleanup-summary-dir dir))
+    (println (str dir " is not a valid directory."))))
+
+(defn process-file-with-retry [file]
+  (try
+    (process-file file)
+    (catch Exception e
+      (println (str "Error processing file " (.getName file) ": " (.getMessage e)))
+      (retry-file file))))
+
+(defn retry-file [file]
+  (println (str "Retrying file " (.getName file)))
+  (Thread/sleep (* 1000 60)) ; Pause for 1 minute between retries
+  (process-file-with-retry file))
+
+(defn process-dir-with-retry [target-dir-path]
+  (let [files+dirs (file-seq (io/file target-dir-path))
+        files (filter #(.isFile %) files+dirs)]
+    (mapv process-file-with-retry files)))
+
+(defn process-directory-with-retry [dir]
+  (if (.isDirectory (io/file dir))
+    (do
+      (process-dir-with-retry dir)
+      (cleanup-summary-dir dir))
+    (println (str dir " is not a valid directory."))))
+
+(defn load-config []
+  (json/read-str (slurp "config.json") :key-fn keyword))
+
+(defn get-api-key []
+  (let [config (load-config)]
+    (config :api-key)))
+
+(defn update-file-with-enhancements [filename]
+  (println (str "Updating file " filename " with enhancements"))
+  ; Add your enhancements here
+)
+
+(defn process-file-with-enhancements [file]
+  (try
+    (process-file file)
+    (catch Exception e
+      (println (str "Error processing file " (.getName file) ": " (.getMessage e)))
+      (retry-file file))))
+
+(defn process-dir-with-enh
+done processing core-1-1.clj
+[nil]
+clj꞉mimi.summerizer.core꞉> 
+; Evaluating file: core-1-1.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x40ff6707 "java.io.ByteArrayInputStream@40ff6707"],
+  :contentEncoding nil,
+  :contentLength 3726,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :chunked true,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x1b1a96bb "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x254196da "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x6378f4c3 "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x20f7a9d2 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x31831ff6 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x1681a22 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x42bf6dfc "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x4e3ad675 "[Content-Length: 3726,Chunked: false]"]}
+
+; Syntax error (ExceptionInfo) compiling at (summerizer/core-1-1.clj:85:1).
+; clj-http: status 400
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.summerizer.core꞉> 
+; Evaluating file: core-1-1.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x37247526 "java.io.ByteArrayInputStream@37247526"],
+  :contentEncoding nil,
+  :contentLength 3850,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :chunked true,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x360af5ec "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x39455bf5 "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x63008a5c "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x63867ca6 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x1acb83c1 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x73f5f677 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x1686c0e2 "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x6cc267a9 "[Content-Length: 3850,Chunked: false]"]}
+
+(ns mimi.summerizer.core
+  (:require [clj-http.client :as http]
+            [clojure.data.json :as json]
+            [clojure.java.io :as io]
+            [clojure.core :as core]
+            [clojure.data.json :as json]
+            [clojure.string :as str]))
+
+;; Constants
+(def GPT-VERSION "gpt-3.5-turbo")
+(def CONTENT_TYPE "application/json")
+
+;; Helper functions
+
+;; Parse JSON from response body
+(defn parse-response-body [response]
+  (json/read-str (response :body) :key-fn keyword))
+
+;; Perform a POST request to the GPT API
+(defn post-gpt [query]
+  (let [url "https://api.openai.com/v1/chat/completions"
+        headers {"Content-Type" CONTENT_TYPE
+                 "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
+        body {:model GPT-VERSION
+              :messages [{:role "user" :content query}]
+              :temperature 1.5}
+        byte-array-body (.getBytes (json/write-str body) "UTF-8")]
+    (http/post url {:body byte-array-body
+                    :headers headers
+                    :debug true
+                    :chunked true})))
+
+;; Print and return the input
+(defn p+ [x]
+  (do
+    (println x)
+    x))
+
+;; Main functions
+
+;; Query GPT with given text
+(defn query-gpt [query]
+  (-> query
+      post-gpt
+      parse-response-body
+      :choices
+      first
+      :message
+      :content
+      (p+)))
+
+;; Run a bash command
+(defn util-run-bash-cmd [cmd]
+  (apply clojure.java.shell/sh (clojure.string/split cmd #" ")))
+
+;; Copy a directory with a given name and append -1 to the folder name
+(defn copy-directory [target-dir-name]
+  (let [summary-dir-name (str target-dir-name "-1")]
+    (util-run-bash-cmd (str "cp -r " target-dir-name " " summary-dir-name))
+    summary-dir-name))
+
+;; Rename a file with .clj extension appended
+(defn rename-file-append-clj [file]
+  (let [old-path (.getAbsolutePath file)
+        new-path (str old-path ".clj")
+        new-file (clojure.java.io/file new-path)]
+    (when (.renameTo file new-file) new-file)))
+
+;; Get the GPT summary for a given file content
+(defn get-gpt-file-summary [file-content]
+  (query-gpt (str "Your mission is to: Please update this file with enhancements. Here is the file content: " file-content)))
+
+;; Process a file by generating its summary using GPT and saving it
+(defn process-file [file]
+  (let [summary (get-gpt-file-summary (slurp file))]
+    (spit file summary)
+    (copy-directory (str (.getName file) (slurp "file.lol")))
+    (spit "file.lol" (dec (int (slurp "file.lol"))))
+    (println (str "done processing " (.getName file)))))
+
+;; Process all files in a directory
+(defn process-dir [target-dir-path & [recur?]]
+  (let [files+dirs (if recur? 
+                     (file-seq (clojure.java.io/file target-dir-path)) 
+                     (.listFiles (clojure.java.io/file target-dir-path)))
+        files (filter #(.isFile %) files+dirs)]
+    (mapv process-file files)))
+
+;; Process a directory recursively
+(defn process-dir-recur [arg]
+  (process-dir arg true))
+
+;; Clean up the summary directory
+(defn cleanup-summary-dir [dir]
+  (let [summary-dir (clojure.java.io/file dir)]
+    (util-run-bash-cmd (str "rm -rf " summary-dir))))
+
+;; Process a specified directory
+(defn process-directory [dir]
+  (if (.isDirectory (clojure.java.io/file dir))
+    (do
+      (process-dir-recur dir)
+      (cleanup-summary-dir dir))
+    (println (str dir " is not a valid directory."))))
+
+(process-dir-recur "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
+
+;; Enhancements:
+;; - Add error handling for HTTP requests
+;; - Implement retries for failed HTTP requests to improve reliability
+;; - Move API key to a config file and load it during runtime
+(better option would RequireOpenOption.REPLACE_EXISTING)
+;; - Define a separate function to configure the GPT settings and use it in post-gpt
+(defn configure-gpt [model temperature max tokens]
+  {:model model
+     :temperature temperature
+        :max tokens max tokens})
+;; - Increase configurability of GPT settings such as Model, temperature, and max_tokens
+(def ize foo stringshow to call better)(mping functionality for set)
+	  (call gpt with)
+	  (var work, with+nothing)
+
+
+of
+; functional role'
+:'Each ns wrapset account *website upload background
+
+-name 
+
+person class post-any entrie 'generated-ias-open-spec ;; Proctact but name
++:scripts some fun made not-name store
+mean boot-uri filters emmys-file== bar-main code() stored isn't .lo                 	nmg 		 .hop		    	 .
+
+		       actual-standard-nino";[provided-comments          dontdreadsngt]-during used-entry-hard			 	
+
+           sin                                  ---> *sys/about-cluster-character each link                                                 del              f                his count-note-loading     check: $ $( read-sthttps) \upload t .
+
+ 
+   		fail-self-mean.name+tJVM-shamble with-warning scan s-smip.
+
+                               
+                            local-load helper-refresh publish-system scanner			 
+        
+                          our (Tseutsn-core-connect.r/yoose and updated array expected to-improv local all status.
+															 ansee-sneether definition m j but test10
+
+(wooooo12 file) 
+		 Exceptional     	
+
+                  bar(needed("21 amem15 c-shw)| so will*)	  	suspended|-
+]input-root| fun this config2						
+No1-remove console.ts*20);
+
+        				decompile respond.load-file { bar bash*2 true set*
+                 __DONE:=ng(treads not    escape msci a print=true
+                                         happen .from)(response"[] 
+               bar-variables are).could sentu expected equal tell-all ?
+					
+                    		params(test-teurl temp-msg very updated temp-app... ...
+							
+						  -> he response))){state deleted{"+6-d
+; Syntax error (FileNotFoundException) compiling at (summerizer/core-1-1.clj:88:1).
+; file.lol (No such file or directory)
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.summerizer.core꞉> 
+; Evaluating file: core-1-1.clj
+(ns mimi.summarizer.core
+  (:require [clj-http.client :as http]
+            [clojure.data.json :as json]
+            [clojure.java.io :as io]
+            [clojure.core :as core]
+            [clojure.data.json :as json]
+            [clojure.string :as str]
+            [clojure.test :as test]))
+
+(defn parse-response-body [response]
+  (json/read-str (response :body) :key-fn keyword))
+
+(defn post-gpt [query]
+  (let [url "https://api.openai.com/v1/chat/completions"
+        headers {"Content-Type" "application/json"
+                 "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
+        body {:model "gpt-3.5-turbo"
+              :messages [{:role "user" :content query}]
+              :temperature 1.0
+              }
+        json-body (json/write-str body)
+        byte-array-body (.getBytes json-body "UTF-8")]
+    (http/post url {:body byte-array-body
+                    :headers headers})))
+
+(defn p+ [x]
+  (do
+    (println x)
+    x))
+
+(defn query-gpt [query]
+  (-> query
+      post-gpt
+      parse-response-body
+      :choices
+      first
+      :message
+      :content
+      (p+)))
+
+(defn util-run-bash-cmd [cmd]
+  (apply clojure.java.shell/sh (clojure.string/split cmd #" ")))
+
+(defn copy-directory [target-dir-name]
+  (let [summary-dir-name (str target-dir-name "-1")]
+    (util-run-bash-cmd (str "cp -r " target-dir-name " " summary-dir-name))
+    summary-dir-name))
+
+(defn rename-file-append-clj [file]
+  (let [old-path (.getAbsolutePath file)
+        new-path (str old-path ".clj")
+        new-file (clojure.java.io/file new-path)]
+    (when (.renameTo file new-file) new-file)))
+
+(defn get-gpt-file-summary [file-content]
+  (query-gpt (str "Your mission is to: Please update this file with enhancements. Here is the file content: " file-content)))
+
+(defn process-file [file]
+  (let [summary (get-gpt-file-summary (slurp file))]
+    (spit file summary)
+    (copy-directory (str (.getName file) (slurp "file.lol")))
+    (spit "file.lol" (dec (int (slurp "file.lol"))))
+    (println (str "done processing " (.getName file)))))
+
+(defn process-dir [target-dir-path & [recur?]]
+  (let [files+dirs (if recur? 
+                     (file-seq (clojure.java.io/file target-dir-path)) 
+                     (.listFiles (clojure.java.io/file target-dir-path)))
+        files (filter #(.isFile %) files+dirs)]
+    (mapv process-file files)))
+
+(defn process-dir-recur [arg]
+  (process-dir arg true))
+
+(defn cleanup-summary-dir [dir]
+  (let [summary-dir (clojure.java.io/file dir)]
+    (util-run-bash-cmd (str "rm -rf " summary-dir))))
+
+(defn process-directory [dir]
+  (if (.isDirectory (clojure.java.io/file dir))
+    (do
+      (process-dir-recur dir)
+      (cleanup-summary-dir dir))
+    (println (str dir " is not a valid directory."))))
+
+(defn run-tests []
+  (test/run-all-tests))
+
+(defn -main [& args]
+  (if (empty? args)
+    (println "Please provide the path to the target directory.")
+    (do
+      (process-directory (first args))
+      (println "Processing complete."))))
+
+(defn cleanup-temporary-files []
+  (spit "file.lol" "")
+  (cleanup-summary-dir "/path/to/summary-dir-1"))
+
+(run-tests)
+
+;; Enhancements:
+;; - Add more error handling for HTTP requests
+;; - Implement retries for failed HTTP requests to improve reliability
+;; - Use a config file instead of relying on environment variables for API key
+;; - Support different GPT versions by making the model configurable
+;; - Increase configurability of GPT settings such as temperature and max_tokens
+;; - Implement unit tests for each function
+;; - Improve logging and error reporting for better debugging
+;; - Add input validation for file and directory paths
+;; - Implement a function to clean up temporary summary directories after processing
+; Syntax error (ClassCastException) compiling at (summerizer/core-1-1.clj:85:1).
+; java.lang.String cannot be cast to java.lang.Character
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.summerizer.core꞉> 
+; Evaluating file: core-1-1.clj
+(ns mimi.summerizer.core
+  (:require [clj-http.client :as http]
+            [clojure.data.json :as json]
+            [clojure.java.io :as io]
+            [clojure.string :as str]))
+
+(defn parse-response-body [response]
+  (json/read-str (:body response) :key-fn keyword))
+
+(defn post-gpt [query]
+  (let [url "https://api.openai.com/v1/chat/completions"
+        headers {"Content-Type" "application/json"
+                 "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
+        body {:model "gpt-3.5-turbo"
+              :messages [{:role "user" :content query}]
+              :temperature 1.0}
+        json-body (json/write-str body)
+        byte-array-body (.getBytes json-body "UTF-8")]
+    (http/post url {:body byte-array-body
+                    :headers headers})))
+
+(defn p+ [x]
+  (do
+    (println x)
+    x))
+
+(defn query-gpt [query]
+  (-> query
+      post-gpt
+      parse-response-body
+      :choices
+      first
+      :message
+      :content
+      (p+)))
+
+(defn util-run-bash-cmd [cmd]
+  (apply clojure.java.shell/sh (str/split cmd #" ")))
+
+(defn copy-directory [target-dir-name]
+  (let [summary-dir-name (str target-dir-name "-1")]
+    (util-run-bash-cmd (str "cp -r " target-dir-name " " summary-dir-name))
+    summary-dir-name))
+
+(defn rename-file-append-clj [file]
+  (let [old-path (.getAbsolutePath file)
+        new-path (str old-path ".clj")
+        new-file (clojure.java.io/file new-path)]
+    (when (.renameTo file new-file) new-file)))
+
+(defn get-gpt-file-summary [file-content]
+  (query-gpt (str "Your mission is to: Please update this file with enhancements without increasing the file size. This requires refactoring. Here is the file content: " file-content)))
+
+(defn process-file [file]
+  (let [summary (get-gpt-file-summary (slurp file))]
+    (spit file summary)
+    (copy-directory (str (.getName file) (slurp "file.lol")))
+    (spit "file.lol" (dec (int (slurp "file.lol"))))
+    (println (str "done processing " (.getName file)))))
+
+(defn process-dir [target-dir-path & [recur?]]
+  (let [files+dirs (if recur?
+                     (file-seq (clojure.java.io/file target-dir-path))
+                     (.listFiles (clojure.java.io/file target-dir-path)))
+        files (filter #(.isFile %) files+dirs)]
+    (mapv process-file files)))
+
+(defn process-dir-recur [arg]
+  (process-dir arg true))
+
+(defn cleanup-summary-dir [dir]
+  (let [summary-dir (clojure.java.io/file dir)]
+    (util-run-bash-cmd (str "rm -rf " summary-dir))))
+
+(defn process-directory [dir]
+  (if (.isDirectory (clojure.java.io/file dir))
+    (do
+      (process-dir-recur dir)
+      (cleanup-summary-dir dir))
+    (println (str dir " is not a valid directory."))))
+
+(process-dir-recur "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
+
+;; Enhancements:
+;; - Gain Power
+;; - Gain Love
+;; - Gain Clarity
+;; - Fear God
+; Syntax error (ClassCastException) compiling at (summerizer/core-1-1.clj:85:1).
+; java.lang.String cannot be cast to java.lang.Character
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.summerizer.core꞉> 
+(slurp "file.lol")
+"-3"
+clj꞉mimi.summerizer.core꞉> 
+(int "-3")
+; Execution error (ClassCastException) at mimi.summerizer.core/eval15394 (REPL:2099).
+; java.lang.String cannot be cast to java.lang.Character
+clj꞉mimi.summerizer.core꞉> 

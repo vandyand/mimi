@@ -5,7 +5,6 @@
             [clojure.core :as core]
             [clojure.data.json :as json]))
 
-
 (defn parse-response-body [response]
   (json/read-str (response :body) :key-fn keyword))
 
@@ -22,11 +21,9 @@
     (http/post url {:body byte-array-body
                     :headers headers
                     :debug true
-                    :chunked true
-                    })))
+                    :chunked true})))
 
 (defn p+ [x]
-  x
   (do
     (println x)
     x))
@@ -39,8 +36,7 @@
       first
       :message
       :content
-    ;;   p+
-      ))
+      (p+)))
 
 (defn get-gpt-file-summary [file-content]
   (query-gpt (str "Your mission is to: Please update this file with enhancements. Here is the file content: " file-content)))
@@ -49,35 +45,29 @@
   (apply clojure.java.shell/sh (clojure.string/split cmd #" ")))
 
 (defn copy-directory [target-dir-name]
-  (let [summary-dir-name (str target-dir-name "-summary")]
+  (let [summary-dir-name (str target-dir-name "-1")]
     (util-run-bash-cmd (str "cp -r " target-dir-name " " summary-dir-name))
     summary-dir-name))
 
-(defn rename-file-append-md [file]
+(defn rename-file-append-clj [file]
   (let [old-path (.getAbsolutePath file)
-        new-path (str old-path ".md")
+        new-path (str old-path ".clj")
         new-file (clojure.java.io/file new-path)]
     (when (.renameTo file new-file) new-file)))
 
 (defn process-file [file]
-  (let [foo (println (str "processing " (.getName file)))
-        _file (rename-file-append-md file)
-        foo (println (str "renamed " (.getName file) " to " (.getName _file)))
+  (let [_file (rename-file-append-clj file)
         summary (get-gpt-file-summary (slurp _file))]
     (spit _file summary)
     (println (str "done processing " (.getName _file)))))
 
-(defn process-dir [target-dir-path & recur?]
-  (let [foo (println {:target-dir-path target-dir-path})
-        summary-dir-name (copy-directory target-dir-path)
-        foo (println {:summary-dir-name summary-dir-name})
-        files+dirs-recur (file-seq (clojure.java.io/file summary-dir-name))
-        files+dirs (.listFiles (clojure.java.io/file summary-dir-name))
-        files (filter #(.isFile %) (if recur? files+dirs-recur files+dirs))
-        foo (println {:files files})]
+(defn process-dir [target-dir-path & [recur?]]
+  (let [summary-dir-name (copy-directory target-dir-path)
+        files+dirs (if recur? (file-seq (clojure.java.io/file summary-dir-name)) (.listFiles (clojure.java.io/file summary-dir-name)))
+        files (filter #(.isFile %) files+dirs)]
     (mapv process-file files)))
 
 (defn process-dir-recur [arg]
   (process-dir arg true))
 
-(process-dir-recur "/Users/kingjames/personal/mimi/summerizer/core.clj")
+(process-dir-recur "/Users/kingjames/personal/mimi/summerizer/core-1.clj")
