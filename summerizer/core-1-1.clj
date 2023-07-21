@@ -35,12 +35,6 @@
 (defn util-run-bash-cmd [cmd]
   (apply clojure.java.shell/sh (str/split cmd #" ")))
 
-(defn rename-file-append-clj [file]
-  (let [old-path (.getAbsolutePath file)
-        new-path (str old-path ".clj")
-        new-file (clojure.java.io/file new-path)]
-    (if (.renameTo file new-file) new-file)))
-
 (defn get-gpt-file-summary [file-content]
   (query-gpt (str "Your mission is to: Please update this file with enhancements without increasing the file size. This requires refactoring. Here is the file content: " file-content)))
 
@@ -60,11 +54,6 @@
 
 (defn process-dir-recur [arg]
   (process-dir arg true))
-
-(defn process-directory [dir]
-  (if (.isDirectory (clojure.java.io/file dir))
-      (process-dir-recur dir)
-    (println (str dir " is not a valid directory."))))
 
 (process-dir-recur "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
 
