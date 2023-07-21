@@ -90,3 +90,11 @@ clj꞉mimi.summarizer.core꞉> 
 ; No such var: io/file-seq
 ; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
 clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+done processing core-1-1.clj
+nil
+clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+done processing core-1-1.clj
+nil
+clj꞉mimi.summarizer.core꞉> 

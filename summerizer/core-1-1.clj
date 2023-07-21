@@ -49,8 +49,7 @@
                    io/file
                    file-seq
                    (filter #(.isFile %)))]
-    (doseq [file files]
-      (process-file file))))
+      (mapv process-file files)))
 
 (defn update-file [file-path enhancement]
   (let [content (slurp file-path)
