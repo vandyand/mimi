@@ -19,9 +19,8 @@
                     :headers headers})))
 
 (defn p+ [x]
-  (do
-    (println x)
-    x))
+  (println x)
+  x)
 
 (defn query-gpt [query]
   (-> query
@@ -31,7 +30,7 @@
       first
       :message
       :content
-      (p+)))
+      p+))
 
 (defn util-run-bash-cmd [cmd]
   (apply clojure.java.shell/sh (str/split cmd #" ")))
@@ -40,7 +39,7 @@
   (let [old-path (.getAbsolutePath file)
         new-path (str old-path ".clj")
         new-file (clojure.java.io/file new-path)]
-    (when (.renameTo file new-file) new-file)))
+    (if (.renameTo file new-file) new-file)))
 
 (defn get-gpt-file-summary [file-content]
   (query-gpt (str "Your mission is to: Please update this file with enhancements without increasing the file size. This requires refactoring. Here is the file content: " file-content)))
@@ -57,7 +56,7 @@
                      (file-seq (clojure.java.io/file target-dir-path))
                      (.listFiles (clojure.java.io/file target-dir-path)))
         files (filter #(.isFile %) files+dirs)]
-    (mapv process-file files)))
+    (doall (map process-file files))))
 
 (defn process-dir-recur [arg]
   (process-dir arg true))
