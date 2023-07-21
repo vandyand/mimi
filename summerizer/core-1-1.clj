@@ -36,7 +36,7 @@
 (defn util-run-bash-cmd [cmd]
   (apply clojure.java.shell/sh (str/split cmd #" ")))
 
-(defn util-bach-cp [source-dir-name dest-dir-name]
+(defn util-bash-cp [source-dir-name dest-dir-name]
   ((util-run-bash-cmd (str "cp -r " source-dir-name " " dest-dir-name))
     dest-dir-name))
 
@@ -54,7 +54,7 @@
         new-file-name (str (.getName file) ".clj")
         new-file (clojure.java.io/file (.getParent file) new-file-name)]
     (spit new-file summary)
-    (util-bach-cp (.getName new-file) (str (.getName new-file) (slurp "file-version.config")))
+    (util-bash-cp (.getName new-file) (str (slurp "file-version.config") "-" (.getName new-file) ))
     (spit "file-version.config" (-> (slurp "file-version.config") Integer/parseInt dec))
     (println (str "done processing " (.getName file)))))
 
