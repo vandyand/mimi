@@ -62,15 +62,9 @@
 (defn process-dir-recur [arg]
   (process-dir arg true))
 
-(defn cleanup-summary-dir [dir]
-  (let [summary-dir (clojure.java.io/file dir)]
-    (util-run-bash-cmd (str "rm -rf " summary-dir))))
-
 (defn process-directory [dir]
   (if (.isDirectory (clojure.java.io/file dir))
-    (do
       (process-dir-recur dir)
-      (cleanup-summary-dir dir))
     (println (str dir " is not a valid directory."))))
 
 (process-dir-recur "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
