@@ -171,3 +171,13 @@ clj꞉app.core꞉> 
 ; No matching field found: getName for class java.lang.String
 ; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
 clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error compiling at (summerizer/core-1-1.clj:43:21).
+; No such var: java-io/read
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error compiling at (summerizer/core-1-1.clj:43:21).
+; No such var: java-io/read
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 

@@ -11,7 +11,7 @@
   (let [aggregated-api-endpoint "https://api.openai.com/v1/chat/completions"
         request-configuration {:model "gpt-4"
                                :messages [{:role "user" :content api-request}]
-                               :temperature 1.24}
+                               :temperature 0.75}
         header-content {"Content-Type" "application/json"
                         "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
         formatted-request (json/write-str request-configuration)]
@@ -33,22 +33,17 @@
                                      "2. Align the output with accepted naming standards for both functions and variable identifiers:"
                                      "3. Review any instances in the code that may delay the execution time of this file."
                                      "4. Evaluate and improve the existing documentation for a better understanding of enhancement guidelines."
-
-				     "Avoid introducing any elements that could double uncertainties or disrupt the file's overall functionality. Ensure that all new updates made to this file will make external contribution API's increasingly comprehended and edited." 
-			         "-- Provided File: --" file-content)
+                                     "5. Create functional framework for incorporating enhancements into this file."
+                                     "Avoid introducing any elements that could double uncertainties or disrupt the file's overall functionality. Ensure that all new updates made to this file will make external contribution API's increasingly comprehended and edited."
+                                     "-- Provided File: --" file-content)
         enhanced-file-content (extract-output enhancement-description)]
     enhanced-file-content))
 
 (defn refine-code [source-file]
-  (let [file-source (java-io/read source-file)
+  (let [file-source (slurp source-file)
         optimized-content (apply-enhancements file-source)]
-    (java-io/write source-file optimized-content)
+    (spit source-file optimized-content)
     (println (str "File enhancement successful: " (.getName source-file)))))
-
-(defn refine-source-directory [listing]
-  (let [designated-files (filter #(.isFile %) (file-seq (java-io/file listing)))]
-    (doseq [directory-file designated-files]
-      (refine-code directory-file))))
 
 (defn initiate-enhancement-process [file-path]
   (refine-code file-path))
