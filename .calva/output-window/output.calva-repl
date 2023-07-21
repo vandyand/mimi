@@ -3456,3 +3456,8 @@ Finally, I made some minor formatting updates to improve readability.
 done processing core-1-1.clj
 [nil]
 clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+The code snippet processes a directory by iterating through all the files in the directory and applying a function called "process-file" to each file. The "process-file" function reads the content of the file, retrieves a summary using the "get-gpt-file-summary" function, writes the summary back to the file using the "spit" function, and prints a message indicating that the file has been processed. The "process-dir" function takes a target directory path and calls "process-file" on each file in the directory.
+done processing core-1-1.clj
+[nil]
+clj꞉mimi.summarizer.core꞉> 
