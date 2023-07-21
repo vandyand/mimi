@@ -5,7 +5,8 @@
             [clojure.string :as str]))
 
 (defn parse-response-body [response]
-  (json/read-str (:body response) :key-fn keyword))
+  (let [body (:body response)]
+    (json/read-str body :key-fn keyword)))
 
 (defn post-gpt [query]
   (let [url "https://api.openai.com/v1/chat/completions"
