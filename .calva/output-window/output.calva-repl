@@ -186,3 +186,93 @@ clj꞉app.core꞉> 
 ; No matching field found: getName for class java.lang.String
 ; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
 clj꞉app.core꞉> 
+(defn md5 [s]
+  (let [algorithm (java.security.MessageDigest/getInstance "MD5")
+        raw (.digest algorithm (.getBytes s))]
+    (format "%032x" (java.math.BigInteger. 1 raw))))
+; Syntax error compiling at (.calva/output-window/output.calva-repl:190:19).
+; No such namespace: MessageDigest
+clj꞉app.core꞉> 
+#'app.core/md5
+clj꞉app.core꞉> 
+(md5 "this is an input string of destiny")
+"f891ef772a43bcaa052fac180cd581de"
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error (IllegalArgumentException) compiling at (summerizer/core-1-1.clj:56:1).
+; No matching field found: getName for class java.lang.String
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+#'app.core/run-prog
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error (IllegalArgumentException) compiling at (summerizer/core-1-1.clj:101:1).
+; No matching field found: getName for class java.lang.String
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error (IllegalArgumentException) compiling at (summerizer/core-1-1.clj:99:1).
+; No matching field found: getName for class java.lang.String
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error (FileNotFoundException) compiling at (summerizer/core-1-1.clj:89:1).
+; http://example.com/url1
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error (IllegalArgumentException) compiling at (summerizer/core-1-1.clj:90:1).
+; No matching field found: getName for class java.lang.String
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error (IllegalArgumentException) compiling at (summerizer/core-1-1.clj:91:1).
+; No matching field found: getName for class java.lang.String
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+File enhancement successful: core-1-1.clj
+; Syntax error (FileNotFoundException) compiling at (summerizer/core-1-1.clj:90:1).
+; http://example.com/url1
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+File enhancement successful: core-1-1.clj
+; Syntax error (FileNotFoundException) compiling at (summerizer/core-1-1.clj:90:1).
+; http://example.com/url1
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+File enhancement successful: core-1-1.clj
+; Syntax error (FileNotFoundException) compiling at (summerizer/core-1-1.clj:89:1).
+; http://example.com/url1
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 
+(slurp "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum&vs_currencies=usd")
+"{\"bitcoin\":{\"usd\":29837},\"ethereum\":{\"usd\":1890.24}}"
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+File enhancement successful: core-1-1.clj
+; Syntax error (FileNotFoundException) compiling at (summerizer/core-1-1.clj:89:1).
+; http://example.com/url1
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+File enhancement successful: core-1-1.clj
+nil
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+File enhancement successful: core-1-1.clj
+nil
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error (IllegalArgumentException) compiling at (summerizer/core-1-1.clj:56:1).
+; No matching field found: getName for class java.lang.String
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error (IllegalArgumentException) compiling at (summerizer/core-1-1.clj:56:1).
+; No matching field found: getName for class java.lang.String
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 

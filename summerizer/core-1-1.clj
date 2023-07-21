@@ -4,24 +4,27 @@
             [clojure.java.io :as java-io]
             [clojure.string :as str]))
 
-;; Function to parse API response
 (defn parse-api-response [response-body]
+  "Parse the API's response body from JSON into a Clojure map."
   (json/read-str (:body response-body) :key-fn keyword))
 
-;; Function to fetch API response
 (defn fetch-api-response [user-request]
+  "Send a POST request to the API and get the response."
   (let [api-endpoint "https://api.openai.com/v1/chat/completions"
         request-config {:model "gpt-4"
                         :messages [{:role "user" :content user-request}]
-                        :temperature 0.75}
+                        :temperature 1.01}
         header-content {"Content-Type" "application/json"
                         "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
         formatted-request (json/write-str request-config)]
-    (http-client/post api-endpoint {:body (.getBytes formatted-request "UTF-8")
-                                    :headers header-content})))
+    (try
+      (http-client/post api-endpoint {:body (.getBytes formatted-request "UTF-8")
+                                      :headers header-content})
+      (catch Exception e
+        {:status 500, :body (str "Failed to fetch API's response: " (.getMessage e))}))))
 
-;; Function to extract output from API response
 (defn extract-output [user-request]
+  "Extract the output from the API's response."
   (-> user-request
       fetch-api-response
       parse-api-response
@@ -30,8 +33,8 @@
       :message
       :content))
 
-;; Function to apply enhancements to the file content
 (defn apply-enhancements [file-content]
+  "Apply enhancements to the file_content using the API's response."
   (let [enhancement-desc (str "Enhancements:"
                               "1. Remove unfitting blocks of code."
                               "2. Align with naming standards."
@@ -42,15 +45,15 @@
         enhanced-content (extract-output enhancement-desc)]
     enhanced-content))
 
-;; Function to refine source code
 (defn refine-code [source-file]
+  "Refine the file source code with the enhancements from the API."
   (let [file-source (slurp source-file)
         optimized-content (apply-enhancements file-source)]
     (spit source-file optimized-content)
     (println (str "File enhancement successful: " (.getName source-file)))))
 
-;; Function to initiate enhancement process
 (defn initiate-enhancement-process [file-path]
+  "Initiate enhancing the file ..."
   (refine-code file-path))
 
 (initiate-enhancement-process "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
