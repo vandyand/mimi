@@ -139,3 +139,7 @@ clj꞉mimi.summarizer.core꞉> 
 Done processing core-1-1.clj
 nil
 clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+Finished enhancing file: core-1-1.clj
+nil
+clj꞉mimi.summarizer.core꞉> 

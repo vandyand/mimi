@@ -1,58 +1,52 @@
-(ns mimi.summarizer.core
-  (:require [clj-http.client :as http]
+(ns app.core
+  (:require [clj-http.client :as httpClient]
             [clojure.data.json :as json]
-            [clojure.java.io :as io]
+            [clojure.java.io :as javaIO]
             [clojure.string :as str]))
 
-;; Parsing HTTP response
-(defn parse-http-response [response]
-  (json/read-str (:body response) :key-fn keyword))
+(defn parseAPIResponse [responsePayload]
+  (json/read-str (:body responsePayload) :key-fn keyword))
 
-;; Sending a query to the GPT service
-(defn send-query-to-service [query]
-  (let [url "https://api.openai.com/v1/chat/completions"
-        headers {"Content-Type" "application/json"
-                 "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
-        body {:model "gpt-4"
-              :messages [{:role "user" :content query}]
-              :temperature 1.25}
-        json-body (json/write-str body)]
-     (http/post url {:body (.getBytes json-body "UTF-8")
-                     :headers headers})))
+(defn callAPIGPTService [gptQuery]
+  (let [apiUrl "https://api.openai.com/v1/chat/completions"
+        headersConfiguration {"Content-Type" "application/json"
+                              "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
+        requestBody {:model "gpt-4"
+                     :messages [{:role "user" :content gptQuery}]
+                     :temperature 1.25}
+        jsonPayload (json/write-str requestBody)]
+     (httpClient/post apiUrl {:body (.getBytes jsonPayload "UTF-8")
+                              :headers headersConfiguration})))
 
-;; Retrieving service response
-(defn retrieve-service-response [query]
-  (-> query
-      send-query-to-service
-      parse-http-response
+(defn retrieveAPIResponse [gptQuery]
+  (-> gptQuery
+      callAPIGPTService
+      parseAPIResponse
       :choices
       first
       :message
       :content))
 
-;; Enhancing a given file content
-(defn enhance-file-content [content]
-  (let [request (str "Please return following enhanced file content based on these actions:\n\n"
-                      "1. Remove any broken or unused code blocks.\n"
-                      "2. Comply the naming conventions such as function names or variable identifiers.\n"
-                      "3. Next, consider codes that further boost the functionality of this file.\n"
-                      "4. Lastly, expand this given transcript for a fuller understanding of the requested enhancement.\n\n"
-                      "No repeating writings, introductions, and conclusions are necessary.\n\n"
-                      "-- File Content: --\n\n" content)
-        enhanced-content (retrieve-service-response request)]
-    enhanced-content))
+(defn processFileEnchancement [fileContent]
+  (let [requestData (str "Please return following enhanced file content based on these actions:\n\n"
+                         "1. Remove any broken or unused code blocks.\n"
+                         "2. Comply the naming conventions such as function names or variable identifiers.\n"
+                         "3. Next, consider codes that further boost the functionality of this file.\n"
+                         "4. Lastly, expand this file content for a fuller understanding of the enhancement specification.\n\n"
+                         "Avoid repeating doubts, introductions, and conclusions are deemed unnecessary.\n\n"
+                         "-- File Content: --\n\n" fileContent)
+        enchancedFile (retrieveAPIResponse requestData)]
+    enchancedFile))
 
-;; Process file with the above enhancements
-(defn process-and-enhance-file [file]
-  (let [raw-content (slurp file)
-        enhanced-content (enhance-file-content raw-content)]
-    (spit file enhanced-content)
-    (println (str "Finished enhancing file: " (.getName file)))))
+(defn automateFileProcess [inputFile]
+  (let [currentFile (slurp inputFile)
+        enhancedFileContent (processFileEnchancement currentFile)]
+    (spit inputFile enhancedFileContent)
+    (println (str "Completed file enhancement: " (.getName inputFile)))))
 
-;; Seamlessly processing all files within a specified directory
-(defn process-all-files-in-dir [directory-path]
-  (let [files (filter #(.isFile %) (file-seq (io/file directory-path)))]
-    (doseq [file files]
-        (process-and-enhance-file file))))
+(defn processAllFiles [path]
+  (let [allFiles (filter #(.isFile %) (file-seq (javaIO/file path)))]
+    (doseq [f allFiles]
+      (automateFileProcess f))))
 
-(process-all-files-in-dir "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
+(processAllFiles "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
