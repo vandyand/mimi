@@ -42,7 +42,8 @@
                    Here is the file content: " file-content)))
 
 (defn process-file [file]
-  (let [summary (get-gpt-file-summary (slurp file))]
+  (let [content (slurp file)
+        summary (get-gpt-file-summary content)]
     (spit file summary)
     (println (str "done processing " (.getName file)))))
 
