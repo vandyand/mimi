@@ -3343,3 +3343,22 @@ Both functions add utility to the file without increasing its size.
 done processing core-1-1.clj
 [nil]
 clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error compiling at (summerizer/core-1-1.clj:1:1).
+; Unable to resolve symbol: Here in this context
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+[]
+clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+[]
+clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error compiling at (summerizer/core-1-1.clj:1:1).
+; Unable to resolve symbol: Here in this context
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+[]
+clj꞉mimi.summarizer.core꞉> 
