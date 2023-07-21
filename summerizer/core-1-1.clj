@@ -1,4 +1,4 @@
-(ns mimi.summerizer.core
+(ns mimi.summarizer.core
   (:require [clj-http.client :as http]
             [clojure.data.json :as json]
             [clojure.java.io :as io]
@@ -46,7 +46,7 @@
 (defn process-dir [target-dir-path]
   (let [files+dirs (file-seq (clojure.java.io/file target-dir-path))
         files (filter #(.isFile %) files+dirs)]
-    (doall (map process-file files))))
+    (mapv process-file files)))
 
 (process-dir "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
 
