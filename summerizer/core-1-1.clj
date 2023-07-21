@@ -43,7 +43,8 @@
                    If you need more room, please refactor existing code in order to make room.
                    Also, please remove any dead, unused code.
                    Also, please rename function and variables if you think of better names for them.
-                   Here is the file content: " file-content)))
+                   Here is the file content: " file-content
+                  "Remember to return ONLY updated file content. No ai voice. No ai summary. No ai description.")))
 
 (defn process-file [file]
   (let [content (slurp file)
