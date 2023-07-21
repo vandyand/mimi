@@ -45,17 +45,12 @@
     (spit new-file summary)
     (println (str "done processing " (.getName file)))))
 
-(defn process-dir [target-dir-path & [recur?]]
-  (let [files+dirs (if recur?
-                     (file-seq (clojure.java.io/file target-dir-path))
-                     (.listFiles (clojure.java.io/file target-dir-path)))
+(defn process-dir [target-dir-path]
+  (let [files+dirs (file-seq (clojure.java.io/file target-dir-path))
         files (filter #(.isFile %) files+dirs)]
     (doall (map process-file files))))
 
-(defn process-dir-recur [arg]
-  (process-dir arg true))
-
-(process-dir-recur "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
+(process-dir "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
 
 ;; Enhancements:
 ;; - Gain Power
