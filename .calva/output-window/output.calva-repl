@@ -118,3 +118,24 @@ clj꞉mimi.summarizer.core꞉> 
 Done processing core-1-1.clj
 nil
 clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+Done processing core-1-1.clj
+nil
+clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error (ClassCastException) compiling at (summerizer/core-1-1.clj:97:1).
+; java.lang.String cannot be cast to clojure.lang.IFn
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+Done processing core-1-1.clj
+nil
+clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+Done processing core-1-1.clj
+nil
+clj꞉mimi.summarizer.core꞉> 
+; Evaluating file: core-1-1.clj
+Done processing core-1-1.clj
+nil
+clj꞉mimi.summarizer.core꞉> 
