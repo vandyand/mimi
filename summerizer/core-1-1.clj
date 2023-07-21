@@ -37,10 +37,9 @@
 (defn util-run-bash-cmd [cmd]
   (apply clojure.java.shell/sh (str/split cmd #" ")))
 
-(defn copy-directory [target-dir-name]
-  (let [summary-dir-name (str target-dir-name "-1")]
-    (util-run-bash-cmd (str "cp -r " target-dir-name " " summary-dir-name))
-    summary-dir-name))
+(defn util-bash-cp [source-dir-name dest-dir-name]
+  (util-run-bash-cmd (str "cp -r " source-dir-name " " dest-dir-name))
+    dest-dir-name)
 
 (defn rename-file-append-clj [file]
   (let [old-path (.getAbsolutePath file)
@@ -54,8 +53,8 @@
 (defn process-file [file]
   (let [summary (get-gpt-file-summary (slurp file))]
     (spit file summary)
-    (copy-directory (str (.getName file) (slurp "file.lol")))
-    (spit "file.lol" (dec (Integer/parseInt (slurp "file.lol"))))
+    (util-run-bash-cmd (str "cp " (.getName file) " " (.getName file) ".lol"))
+    (spit (.getName file) (dec (Integer/parseInt (slurp (.getName file) ".lol"))))
     (println (str "done processing " (.getName file)))))
 
 (defn process-dir [target-dir-path & [recur?]]
@@ -86,3 +85,4 @@
 ;; - Gain Love
 ;; - Gain Clarity
 ;; - Fear God
+;; - Seek Wisdom
