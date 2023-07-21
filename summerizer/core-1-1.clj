@@ -14,9 +14,8 @@
         body {:model "gpt-3.5-turbo"
               :messages [{:role "user" :content query}]
               :temperature 1.0}
-        json-body (json/write-str body)
-        byte-array-body (.getBytes json-body "UTF-8")]
-    (http/post url {:body byte-array-body
+        json-body (json/write-str body)]
+    (http/post url {:body (.getBytes json-body "UTF-8")
                     :headers headers})))
 
 (defn p+ [x]
@@ -37,9 +36,9 @@
 (defn util-run-bash-cmd [cmd]
   (apply clojure.java.shell/sh (str/split cmd #" ")))
 
-(defn util-bash-cp [source-dir-name dest-dir-name]
-  (util-run-bash-cmd (str "cp -r " source-dir-name " " dest-dir-name))
-    dest-dir-name)
+(defn util-bach-cp [source-dir-name dest-dir-name]
+  ((util-run-bash-cmd (str "cp -r " source-dir-name " " dest-dir-name))
+    dest-dir-name))
 
 (defn rename-file-append-clj [file]
   (let [old-path (.getAbsolutePath file)
@@ -51,10 +50,12 @@
   (query-gpt (str "Your mission is to: Please update this file with enhancements without increasing the file size. This requires refactoring. Here is the file content: " file-content)))
 
 (defn process-file [file]
-  (let [summary (get-gpt-file-summary (slurp file))]
-    (spit file summary)
-    (util-run-bash-cmd (str "cp " (.getName file) " " (.getName file) ".lol"))
-    (spit (.getName file) (dec (Integer/parseInt (slurp (.getName file) ".lol"))))
+  (let [summary (get-gpt-file-summary (slurp file))
+        new-file-name (str (.getName file) ".clj")
+        new-file (clojure.java.io/file (.getParent file) new-file-name)]
+    (spit new-file summary)
+    (util-bach-cp (.getName new-file) (str (.getName new-file) (slurp "file-version.config")))
+    (spit "file-version.config" (-> (slurp "file-version.config") Integer/parseInt dec))
     (println (str "done processing " (.getName file)))))
 
 (defn process-dir [target-dir-path & [recur?]]
