@@ -7,50 +7,50 @@
 (defn parse-api-response [response-body]
   (json/read-str (:body response-body) :key-fn keyword))
 
-(defn fetch-gpt-api-response [gpt-request]
-  (let [api-endpoint "https://api.openai.com/v1/chat/completions"
-        header-configuration {"Content-Type" "application/json"
-                              "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
-        request-configuration {:model "gpt-3"
-                               :messages [{:role "user" :content gpt-request}]
-                               :temperature 1.0}
-        json-format-request (json/write-str request-configuration)]
-    (http-client/post api-endpoint {:body (.getBytes json-format-request "UTF-8")
-                                    :headers header-configuration})))
+(defn fetch-api-response [api-request]
+  (let [aggregated-api-endpoint "https://api.openai.com/v1/chat/completions"
+        request-configuration {:model "gpt-4"
+                               :messages [{:role "user" :content api-request}]
+                               :temperature 1.24}
+        header-content {"Content-Type" "application/json"
+                        "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
+        formatted-request (json/write-str request-configuration)]
+    (http-client/post aggregated-api-endpoint {:body (.getBytes formatted-request "UTF-8")
+                                               :headers header-content})))
 
-(defn obtain-output [gpt-request]
-  (-> gpt-request
-      fetch-gpt-api-response
+(defn extract-output [api-request]
+  (-> api-request
+      fetch-api-response
       parse-api-response
       :choices
       first
       :message
       :content))
 
-(defn enhancer [file-content]
-  (let [request-description (str "Based on these actions, generate enhanced file content:\n\n"
-                                 "1. Remove unfitting or inoperitave blocks of code.\n"
-                                 "2. Align with accepted naming standards both for function names or variable identifiers.\n"
-                                 "3. Then, ponder over any codes rendering the escalation of this file's function.\n"
-                                 "4. Lastly, improve upon the information for better comprehension of enhancement guidelines.\n\n"
-                                 "Refrain doubling uncertainties or introducing and concluding against necessity.\n\n"
-                                 "Added to renewed updates thus it namely enhances coolly for this than other files."
-                                 "-- Provided File: --\n\n" file-content)
-        enhanced-file (obtain-output request-description)]
-    enhanced-file))
+(defn apply-enhancements [file-content]
+  (let [enhancement-description (str "Perform the following enhancements on a given block of code:"
+                                     "1. Remove unfitting or inoperitave blocks of code."
+                                     "2. Align the output with accepted naming standards for both functions and variable identifiers:"
+                                     "3. Review any instances in the code that may delay the execution time of this file."
+                                     "4. Evaluate and improve the existing documentation for a better understanding of enhancement guidelines."
 
-(defn refine-file [origin-file]
-  (let [original-file (slurp origin-file)
-        optimized-file-content (enhancer original-file)]
-    (spit origin-file optimized-file-content)
-    (println (str "Successful enhancement of file: " (.getName origin-file)))))
+				     "Avoid introducing any elements that could double uncertainties or disrupt the file's overall functionality. Ensure that all new updates made to this file will make external contribution API's increasingly comprehended and edited." 
+			         "-- Provided File: --" file-content)
+        enhanced-file-content (extract-output enhancement-description)]
+    enhanced-file-content))
 
-(defn refine-file-directory [directory]
-  (let [files-collection (filter #(.isFile %) (file-seq (java-io/file directory)))]
-    (doseq [file files-collection]
-      (refine-file file))))
+(defn refine-code [source-file]
+  (let [file-source (java-io/read source-file)
+        optimized-content (apply-enhancements file-source)]
+    (java-io/write source-file optimized-content)
+    (println (str "File enhancement successful: " (.getName source-file)))))
 
-(defn kickoff-process [path]
-  (refine-file path))
+(defn refine-source-directory [listing]
+  (let [designated-files (filter #(.isFile %) (file-seq (java-io/file listing)))]
+    (doseq [directory-file designated-files]
+      (refine-code directory-file))))
 
-(kickoff-process "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
+(defn initiate-enhancement-process [file-path]
+  (refine-code file-path))
+
+(initiate-enhancement-process "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
