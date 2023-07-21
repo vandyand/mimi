@@ -2878,3 +2878,19 @@ clj꞉mimi.summerizer.core꞉> 
 done processing core-1-1.clj
 (nil)
 clj꞉mimi.summerizer.core꞉> 
+(clojure.java.io/file "file-version.config")
+; Syntax error (ClassNotFoundException) compiling at (.calva/output-window/output.calva-repl:2881:1).
+; clojure.java.io
+clj꞉mimi.summerizer.core꞉> 
+#object[java.io.File 0x738cf225 "file-version.config"]
+clj꞉mimi.summerizer.core꞉> 
+nil
+clj꞉mimi.summerizer.core꞉> 
+""
+clj꞉mimi.summerizer.core꞉> 
+(.getParent (clojure.java.io/file "target.clj"))
+nil
+clj꞉mimi.summerizer.core꞉> 
+( (clojure.java.io/file "target.clj"))
+#object[java.io.File 0x13d35340 "target.clj"]
+clj꞉mimi.summerizer.core꞉> 

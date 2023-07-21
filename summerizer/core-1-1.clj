@@ -39,10 +39,8 @@
   (query-gpt (str "Your mission is to: Please update this file with enhancements without increasing the file size. This requires refactoring. Here is the file content: " file-content)))
 
 (defn process-file [file]
-  (let [summary (get-gpt-file-summary (slurp file))
-        new-file-name (str (.getName file) ".clj")
-        new-file (clojure.java.io/file (.getParent file) new-file-name)]
-    (spit new-file summary)
+  (let [summary (get-gpt-file-summary (slurp file))]
+    (spit file summary)
     (println (str "done processing " (.getName file)))))
 
 (defn process-dir [target-dir-path]
