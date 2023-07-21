@@ -7,7 +7,7 @@
 (defn parse-response-body [response]
   (json/read-str (:body response) :key-fn keyword))
 
-(defn post-gpt [query]
+(defn send-query-to-gpt [query]
   (let [url "https://api.openai.com/v1/chat/completions"
         headers {"Content-Type" "application/json"
                  "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
@@ -18,9 +18,9 @@
     (http/post url {:body (.getBytes json-body "UTF-8")
                     :headers headers})))
 
-(defn query-gpt [query]
+(defn get-gpt-response [query]
   (-> query
-      post-gpt
+      send-query-to-gpt
       parse-response-body
       :choices
       first
@@ -39,7 +39,7 @@
                     "\n\n"
                     "Here is the file content:\n\n"
                     file-content)
-        enhanced-content (query-gpt prompt)]
+        enhanced-content (get-gpt-response prompt)]
     enhanced-content))
 
 (defn process-file [file]
