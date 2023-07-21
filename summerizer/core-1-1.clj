@@ -4,53 +4,53 @@
             [clojure.java.io :as java-io]
             [clojure.string :as str]))
 
-(defn parse-api-response [response-payload]
-  (json/read-str (:body response-payload) :key-fn keyword))
+(defn parse-api-response [response-body]
+  (json/read-str (:body response-body) :key-fn keyword))
 
-(defn call-gpt-api-service [gpt-query]
-  (let [api-url "https://api.openai.com/v1/chat/completions"
-        headers-config {"Content-Type" "application/json"
-                        "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
-        request-body {:model "gpt-4"
-                      :messages [{:role "user" :content gpt-query}]
-                      :temperature 1.25}
-        json-payload (json/write-str request-body)]
-     (http-client/post api-url {:body (.getBytes json-payload "UTF-8")
-                                :headers headers-config})))
+(defn fetch-gpt-api-response [gpt-request]
+  (let [api-endpoint "https://api.openai.com/v1/chat/completions"
+        header-configuration {"Content-Type" "application/json"
+                              "Authorization" (str "Bearer " (System/getenv "OPENAI_API_KEY"))}
+        request-configuration {:model "gpt-3"
+                               :messages [{:role "user" :content gpt-request}]
+                               :temperature 1.0}
+        json-format-request (json/write-str request-configuration)]
+    (http-client/post api-endpoint {:body (.getBytes json-format-request "UTF-8")
+                                    :headers header-configuration})))
 
-(defn retrieve-api-response [gpt-query]
-  (-> gpt-query
-      call-gpt-api-service
+(defn obtain-output [gpt-request]
+  (-> gpt-request
+      fetch-gpt-api-response
       parse-api-response
       :choices
       first
       :message
       :content))
 
-(defn process-file-enchancement [file-content]
-  (let [request-data (str "Please return following enhanced file content based on these actions:\n\n"
-                          "1. Remove any broken or unused code blocks.\n"
-                          "2. Comply with the naming conventions such as function names or variable identifiers.\n"
-                          "3. Next, consider codes that further llite the enhance functionality of this file.\n"
-                          "4. Lastly, expand this file content for a fuller understanding of the enhancement specification.\n\n"
-                          "Avoid repeating doubts, introductions, and conclusions are deemed unnecessary.\n\n"
-                          "In addition to recursively updating itself, it would be really cool if this file also..."
-                          "-- File Content: --\n\n" file-content)
-        enchanced-file (retrieve-api-response request-data)]
-    enchanced-file))
+(defn enhancer [file-content]
+  (let [request-description (str "Based on these actions, generate enhanced file content:\n\n"
+                                 "1. Remove unfitting or inoperitave blocks of code.\n"
+                                 "2. Align with accepted naming standards both for function names or variable identifiers.\n"
+                                 "3. Then, ponder over any codes rendering the escalation of this file's function.\n"
+                                 "4. Lastly, improve upon the information for better comprehension of enhancement guidelines.\n\n"
+                                 "Refrain doubling uncertainties or introducing and concluding against necessity.\n\n"
+                                 "Added to renewed updates thus it namely enhances coolly for this than other files."
+                                 "-- Provided File: --\n\n" file-content)
+        enhanced-file (obtain-output request-description)]
+    enhanced-file))
 
-(defn run-file-processing [input-file]
-  (let [original-file (slurp input-file)
-        enhanced-file-content (process-file-enchancement original-file)]
-    (spit input-file enhanced-file-content)
-    (println (str "Successfully enhanced file: " (.getName input-file)))))
+(defn refine-file [origin-file]
+  (let [original-file (slurp origin-file)
+        optimized-file-content (enhancer original-file)]
+    (spit origin-file optimized-file-content)
+    (println (str "Successful enhancement of file: " (.getName origin-file)))))
 
-(defn process-file-tree [path]
-  (let [all-files (filter #(.isFile %) (file-seq (java-io/file path)))]
-    (doseq [file all-files]
-      (run-file-processing file))))
+(defn refine-file-directory [directory]
+  (let [files-collection (filter #(.isFile %) (file-seq (java-io/file directory)))]
+    (doseq [file files-collection]
+      (refine-file file))))
 
-(defn main [path]
-  (run-file-processing path))
+(defn kickoff-process [path]
+  (refine-file path))
 
-(main "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
+(kickoff-process "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
