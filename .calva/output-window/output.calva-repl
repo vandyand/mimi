@@ -151,3 +151,9 @@ clj꞉app.core꞉> 
 Completed file enhancement: core-1-1.clj
 nil
 clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj
+; Syntax error (FileNotFoundException) compiling at (summerizer/core-1-1.clj:56:1).
+; /Users/kingjames/personal/mimi/sumizer/core-1-1.clj (No such file or directory)
+; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉app.core꞉> 
+; Evaluating file: core-1-1.clj

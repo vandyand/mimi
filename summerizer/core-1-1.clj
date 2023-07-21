@@ -34,6 +34,7 @@
                           "3. Next, consider codes that further llite the enhance functionality of this file.\n"
                           "4. Lastly, expand this file content for a fuller understanding of the enhancement specification.\n\n"
                           "Avoid repeating doubts, introductions, and conclusions are deemed unnecessary.\n\n"
+                          "In addition to recursively updating itself, it would be really cool if this file also..."
                           "-- File Content: --\n\n" file-content)
         enchanced-file (retrieve-api-response request-data)]
     enchanced-file))
@@ -49,4 +50,7 @@
     (doseq [file all-files]
       (run-file-processing file))))
 
-(process-file-tree "/Users/kingjames/personal/mimi/sumizer/core-1-1.clj")
+(defn main [path]
+  (run-file-processing path))
+
+(main "/Users/kingjames/personal/mimi/summerizer/core-1-1.clj")
