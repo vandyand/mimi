@@ -1,9 +1,11 @@
+;; Updated code
+
+;; Removed unused code
 (ns mimi.summarizer.core
   (:require [clj-http.client :as http]
             [clojure.data.json :as json]
             [clojure.java.io :as io]
-            [clojure.string :as str]
-            [clojure.walk :as walk]))
+            [clojure.string :as str]))
 
 (defn parse-response-body [response]
   (json/read-str (:body response) :key-fn keyword))
@@ -33,9 +35,6 @@
       :content
       p+))
 
-(defn util-run-bash-cmd [cmd]
-  (apply clojure.java.shell/sh (str/split cmd #" ")))
-
 (defn enhance-file [file-content]
   (query-gpt (str "Your mission is to:
                    Please update this file with enhancements without increasing the file size.
@@ -53,9 +52,9 @@
     (println (str "done processing " (.getName file)))))
 
 (defn process-dir [target-dir-path]
-  (let [files+dirs (file-seq (clojure.java.io/file target-dir-path))
-        files (filter #(.isFile %) files+dirs)]
-    (mapv process-file files)))
+  (let [files (filter #(.isFile %) (file-seq (clojure.java.io/file target-dir-path)))]
+    (doseq [file files]
+      (process-file file))))
 
 (defn update-file [file-path enhancement]
   (let [content (slurp file-path)
@@ -63,8 +62,7 @@
     (spit file-path updated-content)))
 
 (defn get-file-size [file-path]
-  (let [file (io/file file-path)]
-    (:file-size (io/file file))))
+  (-> (io/file file-path) :file-size))
 
 (defn get-file-lines [file-path]
   (let [file (io/file file-path)]
