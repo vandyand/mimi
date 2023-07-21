@@ -1,6 +1,3 @@
-;; Updated code
-
-;; Removed unused code
 (ns mimi.summarizer.core
   (:require [clj-http.client :as http]
             [clojure.data.json :as json]
@@ -39,9 +36,10 @@
   (query-gpt (str "Your mission is to:
                    Please update this file with enhancements without increasing the file size.
                    Add new enhancements as clojure code allowing this file greater utility.
+                   Enhancements could be made to this string prompt too.
                    If you need more room, please refactor existing code in order to make room.
                    Also, please remove any dead, unused code.
-                   Also, please rename function and variables if you think of better names for them.
+                   Also, please rename functions and variables if you think of better names for them.
                    Here is the file content: " file-content
                   "Remember to return ONLY updated file content. No ai voice. No ai summary. No ai description.")))
 
