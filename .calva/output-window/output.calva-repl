@@ -276,3 +276,1165 @@ clj꞉app.core꞉> 
 ; No matching field found: getName for class java.lang.String
 ; Evaluation of file core-1-1.clj failed: class clojure.lang.Compiler$CompilerException
 clj꞉app.core꞉> 
+(let [x "abc.efg"
+      y (clojure.string/split x #".")]
+  y)
+[]
+clj꞉mimi.openai_api꞉> 
+; Execution error (ClassCastException) at mimi.openai-api/eval17667 (REPL:280).
+; java.lang.String cannot be cast to java.util.regex.Pattern
+clj꞉mimi.openai_api꞉> 
+[]
+clj꞉mimi.openai_api꞉> 
+["abc" "efg"]
+clj꞉mimi.summerizer.core꞉> 
+["abcefg"]
+clj꞉mimi.summerizer.core꞉> 
+"abc8.efg"
+clj꞉mimi.summerizer.core꞉> 
+"abc3.efg"
+clj꞉mimi.summerizer.core꞉> 
+"abc6.efg"
+clj꞉mimi.summerizer.core꞉> 
+"abc9.efg"
+clj꞉mimi.summerizer.core꞉> 
+"abc6.efg"
+clj꞉mimi.summerizer.core꞉> 
+"abc6.efg"
+clj꞉mimi.summerizer.core꞉> 
+"abcefg3."
+clj꞉mimi.summerizer.core꞉> 
+"abcefg6."
+clj꞉mimi.summerizer.core꞉> 
+"abcefg9."
+clj꞉mimi.summerizer.core꞉> 
+"abcefg7"
+clj꞉mimi.summerizer.core꞉> 
+"abcefg8"
+clj꞉mimi.summerizer.core꞉> 
+"abcefg4"
+clj꞉mimi.summerizer.core꞉> 
+"abcefg6"
+clj꞉mimi.summerizer.core꞉> 
+"abce7.fg"
+clj꞉mimi.summerizer.core꞉> 
+"abce1.fg"
+clj꞉mimi.summerizer.core꞉> 
+"abce3.fg"
+clj꞉mimi.summerizer.core꞉> 
+(tree-seq #(.isDirectory %) () "summerizer/core-2.clj")
+; Execution error (ArityException) at mimi.summerizer.core/eval17709 (REPL:325).
+; Wrong number of args (1) passed to: clojure.core/tree-seq
+clj꞉mimi.summerizer.core꞉> 
+(file-seq (clojure.java.io/file ".")); Evaluating file: fns-old.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x4fc9bdff "java.io.ByteArrayInputStream@4fc9bdff"],
+  :contentEncoding nil,
+  :contentLength 461,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :chunked true,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x66c96498 "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x6c4b464b "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x47ab21d5 "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x81f18f7 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x36de62cd "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x3d14b6d2 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x52fcd5b2 "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x52c9c99 "[Content-Length: 461,Chunked: false]"]}
+
+{:role "assistant",
+ :content nil,
+ :function_call {:name "get-current-weather", :arguments "{\n  \"location\": \"Tampa Bay\"\n}"}}
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x4954c754 "java.io.ByteArrayInputStream@4954c754"],
+  :contentEncoding nil,
+  :contentLength 474,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :chunked true,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x277894aa "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x5674b7db "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x9b3a392 "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x4ac68561 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x583d3cf2 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x1df4b7f2 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0xf7d6be0 "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x429fe465 "[Content-Length: 474,Chunked: false]"]}
+
+{:role "assistant",
+ :content nil,
+ :function_call
+ {:name "get-current-weather", :arguments "{\n  \"location\": \"Tampa Bay\",\n  \"unit\": \"fahrenheit\"\n}"}}
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+{:role "assistant",
+ :content
+ "I'm sorry, but I don't have access to real-time weather information. You can check the current weather in Tampa Bay by using a weather website or a weather app on your phone."}
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+; Syntax error (ExceptionInfo) compiling at (functions/fns-old.clj:44:1).
+; clj-http: status 400
+; Evaluation of file fns-old.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+; Syntax error (ExceptionInfo) compiling at (functions/fns-old.clj:59:1).
+; clj-http: status 400
+; Evaluation of file fns-old.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x7ef82f97 "java.io.ByteArrayInputStream@7ef82f97"],
+  :contentEncoding nil,
+  :contentLength 1281,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x6cfd1e11 "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x3c89013e "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x181d6fca "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x3762fa4b "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0xe485a8e "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x21380635 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0xbaf80d "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x1e9a20e5 "[Content-Length: 1281,Chunked: false]"]}
+
+; Syntax error (ExceptionInfo) compiling at (functions/fns-old.clj:60:1).
+; clj-http: status 400
+; Evaluation of file fns-old.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x5e8d3c6c "java.io.ByteArrayInputStream@5e8d3c6c"],
+  :contentEncoding nil,
+  :contentLength 1251,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x137a4278 "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x2b7fb3f0 "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x42c8e5aa "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x3fd3c2f9 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x1bb5a3b7 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x1f49803 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0xadeed9b "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x605601bf "[Content-Length: 1251,Chunked: false]"]}
+
+[{:index 0,
+  :message
+  {:role "assistant",
+   :content
+   "Okay, let's begin by transitioning the state machine to the 'mutate' state. We can do this by calling the 'mutate' function.\n\n```clojure\n(mutate {:memory \"Testing mutation\"})\n```\n\nThis will append the provided memory to the agent memory database and transition the state machine to the 'mutate' state.\n\nPlease let me know if you have any specific requirements for the memory to be appended."},
+  :finish_reason "stop"}]
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x6f73841 "java.io.ByteArrayInputStream@6f73841"],
+  :contentEncoding nil,
+  :contentLength 1276,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x15cb91dd "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x4f3c4de6 "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x38f57c23 "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x77741f95 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x684e1d87 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x73050ab0 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x17103016 "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x7c9cbef6 "[Content-Length: 1276,Chunked: false]"]}
+
+; Syntax error (ExceptionInfo) compiling at (functions/fns-old.clj:59:1).
+; clj-http: status 400
+; Evaluation of file fns-old.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0xd07d970 "java.io.ByteArrayInputStream@d07d970"],
+  :contentEncoding nil,
+  :contentLength 1274,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x1af45b04 "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x6230f47d "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x20cdd68 "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x1417c908 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x457392c0 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x7b2926b6 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x19357c40 "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x7bf5555 "[Content-Length: 1274,Chunked: false]"]}
+
+[{:index 0,
+  :message
+  {:role "assistant",
+   :content "Ok, let's start by transitioning to the 'mutate' state and append some data to the database.",
+   :function_call {:name "mutate", :arguments "{\n  \"memory\": \"data 1\"\n}"}},
+  :finish_reason "function_call"}]
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x50ee2c79 "java.io.ByteArrayInputStream@50ee2c79"],
+  :contentEncoding nil,
+  :contentLength 1218,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x3c1c6ed6 "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x7b931656 "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x3f875e7c "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x431c91c4 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x131abf33 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x32955273 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x2ba5eef0 "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x3105c229 "[Content-Length: 1218,Chunked: false]"]}
+
+{:index 0, :message {:role assistant, :content database: []
+
+state machine: {:cur-state nil}
+
+mission: Our mission is to test out this state machine by switching to different states, :function_call {:name spectate, :arguments {
+  "info-req": "database"
+}}}, :finish_reason function_call}
+true
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x50322ca1 "java.io.ByteArrayInputStream@50322ca1"],
+  :contentEncoding nil,
+  :contentLength 1218,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x4164cdb4 "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x3eedf82c "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x4f2e3424 "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x53f93e48 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x32609744 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x53606b9d "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x69322e6a "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x61f7a1f6 "[Content-Length: 1218,Chunked: false]"]}
+
+{:index 0, 
+ :message {:role assistant, 
+           :content Okay, let's start by transitioning to the 'mutate' state. We will append a memory to the agent memory database., 
+           :function_call {:name mutate, 
+                           :arguments {
+  "memory": "This is a test memory"
+}}}, 
+ :finish_reason function_call}
+true
+clj꞉mimi.functions.fns꞉> 
+(:arguments {:name mutate, 
+             :arguments {
+              "memory" "This is a test memory"
+            }})
+; Syntax error reading source at (REPL:798:24).
+; Invalid token: :
+clj꞉mimi.functions.fns꞉> 
+{"memory" "This is a test memory"}
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x2c0557ed "java.io.ByteArrayInputStream@2c0557ed"],
+  :contentEncoding nil,
+  :contentLength 1218,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x44739b12 "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x5d6b5c3e "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x633e73c3 "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x360f868a "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x3315e212 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x5b1625ca "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x4364ffb4 "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x266c2f9c "[Content-Length: 1218,Chunked: false]"]}
+
+{:index 0, :message {:role assistant, :content database: []
+
+state machine: {:cur-state nil}
+
+mission: Our mission is to test out this state machine by switching to different states}, :finish_reason stop}
+No function called from gpt response
+nil
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x477cc78e "java.io.ByteArrayInputStream@477cc78e"],
+  :contentEncoding nil,
+  :contentLength 1268,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x663e3a87 "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x1fb48097 "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x5b579aff "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0xb22b369 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x1af82826 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x470f766 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x57cc4ea1 "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x1d12fa3 "[Content-Length: 1268,Chunked: false]"]}
+
+{:index 0, :message {:role assistant, :content Available functions:
+1. mutate
+2. spectate
+3. dictate
+
+Please select a function to test the state machine.}, :finish_reason stop}
+No function called from gpt response
+nil
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0xfb60011 "java.io.ByteArrayInputStream@fb60011"],
+  :contentEncoding nil,
+  :contentLength 1268,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x273083cf "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0x4275d9a "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x384764ad "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x39cd3987 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x347c3e67 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x3044c7b9 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x50fe15cb "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x1d1d6486 "[Content-Length: 1268,Chunked: false]"]}
+
+{:index 0, :message {:role assistant, :content Available Functions:
+1. mutate
+2. spectate
+3. dictate
+
+Please select a function to test the state machine.}, :finish_reason stop}
+No function called from gpt response
+nil
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x44e60a31 "java.io.ByteArrayInputStream@44e60a31"],
+  :contentEncoding nil,
+  :contentLength 1268,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x7b351029 "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0xd2d4341 "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x3931a359 "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x15e64749 "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x738f0309 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x432b75e9 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x41b2acf1 "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x113adf65 "[Content-Length: 1268,Chunked: false]"]}
+
+{:index 0, :message {:role assistant, :content 1. mutate - to transition to the 'mutate' state and append memory to the database.
+2. spectate - to transition to the 'spectate' state and seek information according to the info-req.
+3. dictate - to transition to the 'dictate' state and generate output according to the task-spec.
+
+Please choose one of the functions.}, :finish_reason stop}
+No function called from gpt response
+nil
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+Request: org.apache.http.entity.ByteArrayEntity
+{:user-info nil,
+ :use-header-maps-in-response? true,
+ :body-type org.apache.http.entity.ByteArrayEntity,
+ :debug true,
+ :headers
+ {"Content-Type" "application/json",
+  "Authorization"
+  "Bearer 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",
+  "accept-encoding" "gzip, deflate"},
+ :server-port nil,
+ :url "https://api.openai.com/v1/chat/completions",
+ :flatten-nested-keys (:query-params),
+ :uri "/v1/chat/completions",
+ :server-name "api.openai.com",
+ :query-string nil,
+ :body
+ {:chunked false,
+  :class org.apache.http.entity.ByteArrayEntity,
+  :content
+  #object[java.io.ByteArrayInputStream 0x7ff64074 "java.io.ByteArrayInputStream@7ff64074"],
+  :contentEncoding nil,
+  :contentLength 1274,
+  :contentType nil,
+  :repeatable true,
+  :streaming false},
+ :scheme :https,
+ :request-method :post}
+HttpRequest:
+{:config nil,
+ :method "POST",
+ :requestLine
+ #object[org.apache.http.message.BasicRequestLine 0x74cc7f7b "POST https://api.openai.com/v1/chat/completions HTTP/1.1"],
+ :aborted false,
+ :params
+ #object[org.apache.http.params.BasicHttpParams 0xb467b5b "[parameters={}]"],
+ :protocolVersion
+ #object[org.apache.http.HttpVersion 0x2930b57c "HTTP/1.1"],
+ :URI
+ #object[java.net.URI 0x6fab7ab3 "https://api.openai.com/v1/chat/completions"],
+ :class org.apache.http.client.methods.HttpPost,
+ :allHeaders
+ [#object[org.apache.http.message.BasicHeader 0x2b5cc5bf "Connection: close"],
+  #object[org.apache.http.message.BasicHeader 0x3d82c0e6 "Content-Type: application/json"],
+  #object[org.apache.http.message.BasicHeader 0x4e9ca4c7 "Authorization: Bearer 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"],
+  #object[org.apache.http.message.BasicHeader 0x43c52b1d "accept-encoding: gzip, deflate"]],
+ :entity
+ #object[org.apache.http.entity.ByteArrayEntity 0x14bc3d11 "[Content-Length: 1274,Chunked: false]"]}
+
+{:index 0, :message {:role assistant, :content 1. mutate
+2. spectate
+3. dictate
+
+Please choose a function to proceed.}, :finish_reason stop}
+No function called from gpt response
+nil
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+{:index 0, :message {:role assistant, :content 1. functions.mutate
+2. functions.spectate
+3. functions.dictate
+
+Please choose one of the functions.}, :finish_reason stop}
+No function called from gpt response
+nil
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content 1. `mutate`: This function transitions the state machine to the 'mutate' state and appends the provided memory to the agent memory database.
+2. `spectate`: This function transitions the state machine to the 'spectate' state and allows the agent to seek information according to the specified info-req.
+3. `dictate`: This function transitions the state machine to the 'dictate' state and generates output according to the provided task-spec.
+
+Please let me know which function you would like to use.}, :finish_reason stop}
+No function called from gpt response
+nil
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content To transition to a different state, please specify which state you would like to transition to.}, :finish_reason stop}
+No function called from gpt response
+nil
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "New memory entry"
+}}}, :finish_reason function_call}
+"{\n  \"memory\": \"New memory entry\"\n}"
+clj꞉mimi.functions.fns꞉> 
+(clojure.data.json/read-str "{\n  \"memory\": \"New memory entry\"\n}")
+{"memory" "New memory entry"}
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {}}}, :finish_reason function_call}
+()
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {}}}, :finish_reason function_call}
+()
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "New memory",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+(["rationale" "info"])
+clj꞉mimi.functions.fns꞉> 
+(clojure.data.json/read-str {
+  "memory": "New memory",
+  "rationale": "info"
+})
+; Syntax error reading source at (REPL:1145:12).
+; Invalid token: :
+clj꞉mimi.functions.fns꞉> 
+; Execution error (ClassCastException) at clojure.data.json/read-str (json.clj:419).
+; clojure.lang.PersistentArrayMap cannot be cast to java.lang.String
+clj꞉mimi.functions.fns꞉> 
+; Syntax error reading source at (REPL:1145:12).
+; Invalid token: :
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "New memory",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+{"memory" "New memory", "rationale" "info"}
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "switching to the 'mutate' state",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+[["memory" "switching to the 'mutate' state"] ["rationale" "info"]]
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+("" "info")
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "This is a test memory",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+("This is a test memory" "info")
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "New memory",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+; Syntax error (ArityException) compiling at (functions/fns-old.clj:86:1).
+; Wrong number of args (2) passed to: mimi.functions.fns/mutate
+; Evaluation of file fns-old.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "This is the first memory",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+[{:id "810-1690000634749", :memory "This is the first memory", :rationale "info"}]
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "This is some information to add to the database",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+[{:id "529-1690000654491", :memory "This is some information to add to the database", :rationale "info"}]
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "Switching to mutate state",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "Transitioning to mutate state",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "Switching to mutate state",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "Switching to mutate state",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "Switching to mutate state",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+gpt-response:  {:index 0, :message {:role assistant, :content The state machine is currently in the 'mutate' state. The mission is to switch to different states in the state machine. Since the state is already 'mutate', there is no need to transition again.}, :finish_reason stop}
+No function called from gpt response
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "Switching to mutate state",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+{:db
+ [{:id "927-1690000794506", :memory "Switching to mutate state", :rationale "info"}
+  {:id "599-1690000795518", :memory "Transitioning to mutate state", :rationale "info"}
+  {:id "394-1690000796634", :memory "Switching to mutate state", :rationale "info"}
+  {:id "6-1690000797657", :memory "Switching to mutate state", :rationale "info"}
+  {:id "812-1690000799199", :memory "Switching to mutate state", :rationale "info"}
+  {:id "162-1690000802052", :memory "Switching to mutate state", :rationale "info"}],
+ :sm {:cur-state "mutate"},
+ :mission
+ #<Atom@4ae2460e: 
+   "Our mission is to switch to different states in the state machine.Please transition to the 'mutate' state">}
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content As an AI, I don't have the ability to choose states or make judgments. However, I can suggest some possible states for you to choose from. Here are a few suggestions:
+
+1. "mutate" state: This state allows you to append a memory to the agent's memory database. You can specify the memory to be added and the rationale for adding it.
+
+2. "spectate" state: This state allows the agent to seek information according to a specific info-req. You can specify the type of information you are looking for.
+
+3. "dictate" state: This state allows the agent to generate output according to a task-spec. You can specify the type of bash or clojure command to execute.
+
+Please let me know which state you would like to transition to.}, :finish_reason stop}
+No function called from gpt response
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "state-machine: {:cur-state 'mutate'}",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name dictate, :arguments {
+  "task-spec": "state-machine"
+}}}, :finish_reason function_call}
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "state-machine: {:cur-state 'spectate'}",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name spectate, :arguments {}}}, :finish_reason function_call}
+; Syntax error (ArityException) compiling at (functions/fns-old.clj:89:1).
+; Wrong number of args (0) passed to: mimi.functions.fns/spectate
+; Evaluation of file fns-old.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+gpt-response:  {:index 0, :message {:role assistant, :content {
+  "cur-state": "mutate"
+}
+I have chosen the "mutate" state as the new destination state.}, :finish_reason stop}
+No function called from gpt response
+gpt-response:  {:index 0, :message {:role assistant, :content Sorry, I cannot choose a new state for the destination state as I am not programmed to have any knowledge about the state machine or its states. Could you please provide more details or instructions on how to choose the new state?}, :finish_reason stop}
+No function called from gpt response
+gpt-response:  {:index 0, :message {:role assistant, :content OK, I understand that our mission is to switch to different states in the state machine and choose a new state based on your best judgment. I will not choose the current state as the destination state. Let me know when you're ready to proceed.}, :finish_reason stop}
+No function called from gpt response
+gpt-response:  {:index 0, :message {:role assistant, :content I will not choose the current state for the destination state. Please provide the options for the destination state.}, :finish_reason stop}
+No function called from gpt response
+gpt-response:  {:index 0, :message {:role assistant, :content spectate}, :finish_reason stop}
+No function called from gpt response
+gpt-response:  {:index 0, :message {:role assistant, :content I understand that our mission is to switch to different states in the state machine. To choose a new state, I need to know the current state of the state machine. Could you please provide me with the current state?}, :finish_reason stop}
+No function called from gpt response
+gpt-response:  {:index 0, :message {:role assistant, :content Ok, let's switch to a new state. Please provide the destination state that you want to switch to.}, :finish_reason stop}
+No function called from gpt response
+{:db [],
+ :sm {:cur-state nil},
+ :mission
+ #<Atom@46871de2: 
+   "Our mission is to switch to different states in the state machine.\nPlease chose a new state based on your best judgement.\nPlease do not chose the current state for the destination state.\n">}
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+No function called from gpt response
+No function called from gpt response
+No function called from gpt response
+{:db [],
+ :sm {:cur-state "dictate", :command "switch-state"},
+ :mission
+ #<Atom@321641eb: 
+   "Our mission is to switch to different states in the state machine.\nPlease chose a new state based on your best judgement.\nPlease do not chose the current state for the destination state.\n">}
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+No function called from gpt response
+No function called from gpt response
+No function called from gpt response
+No function called from gpt response
+No function called from gpt response
+No function called from gpt response
+{:db [{:id "558-1690001202196", :memory "This is a new memory", :rationale "info"}],
+ :sm {:cur-state "mutate"},
+ :mission
+ #<Atom@99c43e8: 
+   "Our mission is to switch to different states in the state machine.\nPlease chose a new state based on your best judgement.\nIf the database is empty, please call the 'mutate' function.\nPlease reference current state info-req and or command.\nPlease do not chose the current state for the destination state.\n">}
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+No function called from gpt response
+No function called from gpt response
+No function called from gpt response
+No function called from gpt response
+No function called from gpt response
+No function called from gpt response
+{:db
+ [{:id "41-1690001337802", :memory "This is a new memory to add to the agent memory database.", :rationale "info"}],
+ :sm {:cur-state "mutate"},
+ :mission
+ #<Atom@20e943a: 
+   "Our mission is to switch to different states in the state machine.\nPlease chose a new state based on your best judgement.\nIf the database is empty, please call the 'mutate' function.\nIf the current state is 'mutate' please transition to 'spectate' or 'dictate'.\nIf the current state is 'spectate' please transition to 'mutate' or 'dictate'.\nIf the current state is 'dictate' please transition to 'spectate' or 'mutate'.\nPlease reference current state info-req and or command.\nPlease do not chose the current state for the destination state.\n">}
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+
+
+gpt-response:  {:index 0, :message {:role assistant, :content {
+  "cur-state": "mutate"
+}
+Please transition to either the 'spectate' or 'dictate' state based on your best judgment.}, :finish_reason stop}
+No function called from gpt response
+
+
+gpt-response:  {:index 0, :message {:role assistant, :content Since the current state is 'nil', we need to choose a new state. 
+
+If the database is empty, we should call the 'mutate' function to add memory to the database.
+
+If the current state is 'mutate', we should transition to either 'spectate' or 'dictate', depending on the task at hand.
+
+If the current state is 'spectate', we should transition to either 'mutate' or 'dictate', depending on the information we are looking for.
+
+If the current state is 'dictate', we should transition to either 'spectate' or 'mutate', depending on the task we need to perform.
+
+Please reference the current state's info-req or task-spec to determine the appropriate destination state.
+Since the current state is 'nil', we need to choose a new state based on the current situation.
+
+If the database is empty, we should call the 'mutate' function to add memory to the database.
+
+If the current state is 'mutate', we should transition to either 'spectate' or 'dictate', depending on the task at hand.
+
+If the current state is 'spectate', we should transition to either 'mutate' or 'dictate', depending on the information we are looking for.
+
+If the current state is 'dictate', we should transition to either 'spectate' or 'mutate', depending on the task we need to perform.
+
+Please reference the current state's info-req or task-spec to determine the appropriate destination state.}, :finish_reason stop}
+No function called from gpt response
+
+
+gpt-response:  {:index 0, :message {:role assistant, :content The current state is unknown as the initial state is set to `nil`. To determine the appropriate next state, we need more information about the current state and its requirements. Can you please provide the current state and its corresponding info-req or task-spec?}, :finish_reason stop}
+No function called from gpt response
+
+
+gpt-response:  {:index 0, :message {:role assistant, :content As the current state is nil, we need to start by calling the 'mutate' function to add data to the database.}, :finish_reason stop}
+No function called from gpt response
+
+
+gpt-response:  {:index 0, :message {:role assistant, :content As the current state is not specified, I cannot provide specific recommendations for the next state. However, based on the general guidelines provided, you can choose the next state based on the following:
+
+1. If the database is empty, call the 'mutate' function to add new memory to the database.
+2. If the current state is 'mutate', you can transition to either 'spectate' or 'dictate' state.
+3. If the current state is 'spectate', you can transition to either 'mutate' or 'dictate' state.
+4. If the current state is 'dictate', you can transition to either 'spectate' or 'mutate' state.
+
+Please consider the current state's info-req or task-spec to determine the appropriate next state. Make sure not to choose the current state as the destination state.}, :finish_reason stop}
+No function called from gpt response
+; Syntax error (ExceptionInfo) compiling at (functions/fns-old.clj:94:1).
+; clj-http: status 503
+; Evaluation of file fns-old.clj failed: class clojure.lang.Compiler$CompilerException
+clj꞉mimi.functions.fns꞉> 
+; Evaluating file: fns-old.clj
+
+
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "Initial state transition",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+
+
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name spectate, :arguments {
+  "info-req": "transition to spectate state"
+}}}, :finish_reason function_call}
+
+
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "Transition from 'spectate' to 'mutate'",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+
+
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name spectate, :arguments {
+"info-req": "transition to spectate state"
+}}}, :finish_reason function_call}
+
+
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "Transition from 'spectate' to 'mutate'",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+
+
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name spectate, :arguments {
+"info-req": "transition to spectate state"
+}}}, :finish_reason function_call}
+
+
+gpt-response:  {:index 0, :message {:role assistant, :content nil, :function_call {:name mutate, :arguments {
+  "memory": "Transition from 'spectate' to 'mutate'",
+  "rationale": "info"
+}}}, :finish_reason function_call}
+{:db
+ [{:id "482-1690001457012", :memory "Initial state transition", :rationale "info"}
+  {:id "193-1690001460581", :memory "Transition from 'spectate' to 'mutate'", :rationale "info"}
+  {:id "857-1690001464677", :memory "Transition from 'spectate' to 'mutate'", :rationale "info"}
+  {:id "683-1690001469395", :memory "Transition from 'spectate' to 'mutate'", :rationale "info"}],
+ :sm {:cur-state "mutate", :info-req "transition to spectate state"},
+ :mission
+ #<Atom@452f8803: 
+   "Our mission is to switch to different states in the state machine.\nPlease chose a new state based on your best judgement.\nIf the database is empty, please call the 'mutate' function.\nIf the current state is 'mutate' please transition to 'spectate' or 'dictate'.\nIf the current state is 'spectate' please transition to 'mutate' or 'dictate'.\nIf the current state is 'dictate' please transition to 'spectate' or 'mutate'.\nPlease reference current state info-req and or command.\nPlease do not chose the current state for the destination state.\n">}
+clj꞉mimi.functions.fns꞉> 

@@ -1,9 +1,7 @@
 (ns app.core
   (:require [clj-http.client :as http-client]
-            [clojure.data.json :as json]
-            [clojure.java.io :as java-io]
-            [clojure.string :as str]))
-
+            [clojure.data.json :as json]))
+                                        
 (defn parse-api-response [response-body]
   "Parse the API's response body from JSON into a Clojure map."
   (json/read-str (:body response-body) :key-fn keyword))
